@@ -2,6 +2,8 @@
 
 Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle
 
+> El objetivo es que pueda servir como guía para el aprendizaje, lo más importante será histórico de Git, así como los ejemplos propuestos de la estructura y buenas prácticas al diseñar una Api Rest
+
 ## Proyecto 
 
 Plantilla para crear el proyecto desde la página de start.spring.io
@@ -73,10 +75,8 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 
 - id - Long(PK)
 - name - String(90)
-- avatar - String(255)
+- avatarImage - String(255)
 - description - String(1000)
-- createdAt - LocalTimeDate
-- updatedAt - LocalTimeDate
 - posts -> author_id(relationship)
 - createdAt - LocalTimeDate
 - updatedAt - LocalTimeDate
@@ -132,5 +132,16 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 - contentType - String(10)
 - contentId - Long
 - ipAddress - String(100)
+- likesNumber - Long
 - createdAt - LocalDateTime
 - updatedAt - LocalDateTime
+
+### Diagrama del schema
+
+![Blog DB Schema](docs/assets/database_schema_diagram_er.jpg)
+
+## Referencias
+
+- [1]: [Listado de configuraciones de spring boot: `application.properties`](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+- [2]: [Palabras reservadas que soporta JPA para definir las consultas como métodos](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
+- [3]: [Apéndice de palabras que soportan los repositorios](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-keywords)
