@@ -140,6 +140,11 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 
 ![Blog DB Schema](docs/assets/database_schema_diagram_er.jpg)
 
+## Documentación
+
+- [Ideas para construir una REST API](docs/api-rest.md)
+- [Dependencias básicas para Spring Boot](docs/spring-boot-dependencies.md)
+
 ## Referencias
 
 - [1]: [Listado de configuraciones de spring boot: `application.properties`](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
