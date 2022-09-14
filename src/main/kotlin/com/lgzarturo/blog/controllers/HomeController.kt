@@ -2,17 +2,36 @@ package com.lgzarturo.blog.controllers
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.util.UUID
 
 @RequestMapping
 @RestController
 class HomeController {
 
     private val log = LoggerFactory.getLogger(this::class.java)
+
+    // HACK: Para propósitos de ejemplo se usa una lista mutable en memoria.
+    val people = mutableListOf(
+        Response(UUID.randomUUID().toString(), 200, "Person 1", 30, "Programador web", false),
+        Response(UUID.randomUUID().toString(), 200, "Person 2", 18, "Diseñador gráfico", true),
+        Response(UUID.randomUUID().toString(), 200, "Person 3", 22, "Administrador", true),
+        Response(UUID.randomUUID().toString(), 200, "Person 4", 17, "Estudiante", false),
+        Response(UUID.randomUUID().toString(), 200, "Person 5", 44, "Gerente", true),
+        Response(UUID.randomUUID().toString(), 200, "Person 6", 53, "Director", true),
+        Response(UUID.randomUUID().toString(), 200, "Person 7", 13, "Programador mobile", true),
+    )
 
     @GetMapping
     fun index(@RequestBody request: Request?, @RequestParam name: String?): Response {
@@ -26,14 +45,99 @@ class HomeController {
             message = message
         )
     }
+
+    /** CRUD Básico **/
+    @PostMapping("people")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun create(@RequestBody request: Request): ResponseEntity<Response> {
+        log.debug("Crear una entidad")
+        val response = Response(request)
+        people.add(response)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("people/{id}")
+    fun read(@PathVariable id: String): ResponseEntity<Response> {
+        log.debug("Obtener una determinada entidad")
+        val response = getById(id) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(response)
+    }
+
+    @PutMapping("people/{id}")
+    fun update(@PathVariable id: String, @RequestBody request: Request): ResponseEntity<Response> {
+        log.debug("Editar una determinada entidad")
+        val response = getById(id) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(response.update(request))
+    }
+
+    @DeleteMapping("people/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: String): ResponseEntity<Response> {
+        log.debug("Borrar una determinada entidad")
+        val response = getById(id) ?: return ResponseEntity.notFound().build()
+        try {
+            people.removeAt(people.indexOf(response))
+        } catch (ex: Exception) {
+            return ResponseEntity.unprocessableEntity().build()
+        }
+        return ResponseEntity.noContent().build()
+    }
+
+    /** Listado de elementos **/
+    @GetMapping("people")
+    fun list(): ResponseEntity<List<Response>> {
+        log.debug("Obtener un listado de objetos")
+        return ResponseEntity.ok(people)
+    }
+
+    /** Acciones determinadas **/
+    @PatchMapping("people/{id}/activate")
+    fun setActive(@PathVariable id: String): ResponseEntity<Response> {
+        log.debug("Actualizar una propiedad en especifico")
+        val response = getById(id) ?: return ResponseEntity.notFound().build()
+        response.isActive = true
+        return ResponseEntity.ok(response)
+    }
+
+    @PatchMapping("people/{id}/deactivate")
+    fun setInactive(@PathVariable id: String): ResponseEntity<Response> {
+        log.debug("Actualizar una propiedad en especifico")
+        val response = getById(id) ?: return ResponseEntity.notFound().build()
+        response.isActive = false
+        return ResponseEntity.ok(response)
+    }
+
+    /** Métodos privados **/
+    private fun getById(id: String): Response? {
+        return people.find { it.id == id }
+    }
 }
 
 class Response(
+    var id: String? = null,
     var status: Int? = null,
-    var message: String? = null
-)
-
-class Request(
     var name: String? = null,
+    var age: Int? = null,
+    var message: String? = null,
+    var isActive: Boolean = false
+) {
+    constructor(request: Request?) : this() {
+        id = UUID.randomUUID().toString()
+        status = HttpStatus.CREATED.value()
+        name = request?.name?:""
+        age = request?.age?:0
+        message = "Objeto creado"
+        isActive = false
+    }
+
+    fun update(request: Request): Response {
+        name = request.name
+        age = request.age
+        return this
+    }
+}
+
+class Request {
+    var name: String? = null
     var age: Int? = null
-)
+}

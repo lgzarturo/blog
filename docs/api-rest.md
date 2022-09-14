@@ -15,3 +15,17 @@ En este documento detallo algunos de los pasos necesarios para crear una API Res
 - **Nivel dos**: En este nivel se basan en los principios del uso de REST, se introduce el uso de multiples direcciones URI, por lo regular uno por recurso. En este punto los servicios usan un solo verbo HTTP para todas las operaciones, típicamente POST.
 - **Nivel tres**: Los servicios en este nivel hacen un uso correcto de la mayoría de los verbos HTTP y también implementan el uso del status code que provee el protocolo.
 - **Nivel cuatro**: Es el nivel más maduro de los servicios REST, las respuestas de los endpoints proveen enlaces relacionados con los recursos y le da el mayor control al cliente para descubrir las operaciones soportadas y las direcciones URI relaciones. Por ejemplo el uso de la paginación en la respuesta. 
+
+## Uso de verbos
+
+- **GET**: Se usa para obtener una lista de objetos o también para obtener un objeto específico. 
+- **POST**: Se usa al crear un objeto. 
+- **PUT**: Se usa para actualizar algún objeto específico.
+- **PATCH**: Actualiza una propiedad o partes del objeto específico.
+- **DELETE**: Borra un objeto en particular.
+
+### Ejemplos 
+
+**HomeController**:
+
+![Blog DB Schema](assets/api-rest-home-controller.jpg)

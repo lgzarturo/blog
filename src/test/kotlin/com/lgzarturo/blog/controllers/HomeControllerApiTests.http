@@ -1,0 +1,43 @@
+###
+GET /blog/api/v1
+Host: localhost:9090
+
+###
+POST /blog/api/v1/people
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "name": "Nueva persona",
+    "age": 28
+}
+
+###
+GET /blog/api/v1/people/{id}
+Host: localhost:9090
+
+###
+PUT /blog/api/v1/people/{id}
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "name": "Nueva persona (editada)",
+    "age": 38
+}
+
+###
+DELETE /blog/api/v1/people/{id}
+Host: localhost:9090
+
+###
+GET /blog/api/v1/people
+Host: localhost:9090
+
+###
+PATCH /blog/api/v1/people/{id}/activate
+Host: localhost:9090
+
+###
+PATCH /blog/api/v1/people/{id}/deactivate
+Host: localhost:9090
