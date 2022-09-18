@@ -12,9 +12,12 @@ class Comment(
     val id: Long? = null,
     val parentId: Long? = null,
     val postId: Long? = null,
+    @Column(length = 90)
     val author: String? = null,
     val authorEmail: String? = null,
+    @Column(length = 100)
     val ipAddress: String? = null,
+    @Column(length = 1000)
     val content: String? = null,
     val isApproved: Boolean? = null,
     val commentLikes: Long? = null,

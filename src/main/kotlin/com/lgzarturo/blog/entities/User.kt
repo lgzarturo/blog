@@ -1,13 +1,8 @@
 package com.lgzarturo.blog.entities
 
+import com.lgzarturo.blog.common.UserType
 import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.SequenceGenerator
-import javax.persistence.Table
-import javax.persistence.Transient
+import javax.persistence.*
 
 @Entity
 @Table(name = "users")
@@ -18,7 +13,9 @@ class User(
     val id: Long? = null,
     val email: String? = null,
     val password: String? = null,
-    val userType: String? = null,
+    @Column(length = 20)
+    @Enumerated(EnumType.STRING)
+    val userType: UserType? = null,
     val isActive: Boolean? = null,
     @Transient
     val author: Author? = null,
