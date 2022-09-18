@@ -8,3 +8,5 @@
 - **spring-boot-starter-hateoas**: Soporta el uso de los servicios REST con Hateoas.
 - **spring-boot-starter-aop**: Tiene las dependencias necesarias para la programación orientada a aspectos y AspectJ.
 - **spring-boot-maven-plugin**: Sirve para empaquetar la aplicación y generar los ejecutables JAR/WAR para poder ejecutar el proyecto.
+- **spring-boot-devtools**: Añade el soporte para hot reloading y capacidades para el modo desarrollo en spring boot.
+- **spring-boot-configuration-processor**: Este paquete añade detalles para el soporte de las propiedades de configuración, está diseñado para ofrecer un contexto y completado de código que sirve para el IDE.

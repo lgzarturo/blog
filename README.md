@@ -1,6 +1,6 @@
 # Blog
 
-Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle
+Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle + Java 17
 
 > El objetivo es que pueda servir como guía para el aprendizaje, lo más importante será histórico de Git, así como los ejemplos propuestos de la estructura y buenas prácticas al diseñar una Api Rest
 
