@@ -11,5 +11,5 @@ class LikeCounter(
     @Column(length = 10)
     val contentType: String? = null,
     val contentId: Long? = null,
-    val likesNumber: Long? = null,
+    val likesNumber: Long = 0L,
 ) : BaseEntity()

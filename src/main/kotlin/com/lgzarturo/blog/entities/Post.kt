@@ -27,11 +27,11 @@ class Post (
     val status: String? = null,
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    val postType: PostType? = null,
-    val postLikes: Long? = null,
-    val postComments: Long? = null,
-    val hasPage: Boolean? = null,
-    val menuOrder: Int? = null,
+    val postType: PostType = PostType.ARTICLE,
+    val postLikes: Long = 0L,
+    val postComments: Long = 0L,
+    val hasPage: Boolean = false,
+    val menuOrder: Int = 0,
     @ManyToOne
     val author: Author? = null,
     @ManyToOne

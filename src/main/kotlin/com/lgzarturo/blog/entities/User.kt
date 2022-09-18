@@ -14,8 +14,8 @@ class User(
     val password: String? = null,
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
-    val userType: UserType? = null,
-    val isActive: Boolean? = null,
+    val userType: UserType = UserType.USER,
+    val isActive: Boolean = true,
     @OneToOne
     val author: Author? = null,
 ) : BaseEntity()

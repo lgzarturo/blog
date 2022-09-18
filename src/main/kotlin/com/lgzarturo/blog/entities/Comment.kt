@@ -20,6 +20,6 @@ class Comment(
     val ipAddress: String? = null,
     @Column(length = 1000)
     val content: String? = null,
-    val isApproved: Boolean? = null,
-    val commentLikes: Long? = null,
+    val isApproved: Boolean = false,
+    val commentLikes: Long = 0L,
 ) : BaseEntity()
