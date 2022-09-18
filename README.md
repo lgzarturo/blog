@@ -144,6 +144,7 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 
 - [Ideas para construir una REST API](docs/api-rest.md)
 - [Dependencias básicas para Spring Boot](docs/spring-boot-dependencies.md)
+- [Capas del proyecto y tips de programación](docs/spring-boot-project.md)
 
 ## Referencias
 
