@@ -107,7 +107,6 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 - id - Long(PK)
 - contentType - String(10)
 - contentId - Long
-- ipAddress - String(100)
 - likesNumber - Long
 - createdAt - LocalDateTime
 - updatedAt - LocalDateTime

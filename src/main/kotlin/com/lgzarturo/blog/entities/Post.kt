@@ -13,7 +13,8 @@ class Post (
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postSeqGen")
     @SequenceGenerator(name = "postSeqGen", sequenceName = "postSeq", initialValue = 1)
     val id: Long? = null,
-    val parentId: Long? = null,
+    @ManyToOne
+    val partentPost: Post? = null,
     @Column(length = 180)
     val title: String? = null,
     @Column(length = 180)
@@ -32,8 +33,10 @@ class Post (
     val postComments: Long? = null,
     val hasPage: Boolean? = null,
     val menuOrder: Int? = null,
-    val authorId: Long? = null,
-    val categoryId: Long? = null,
+    @ManyToOne
+    val author: Author? = null,
+    @ManyToOne
+    val category: Category? = null,
     val publishedAt: LocalDate? = null,
     val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime? = null

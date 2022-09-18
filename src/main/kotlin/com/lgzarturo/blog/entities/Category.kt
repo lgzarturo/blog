@@ -16,7 +16,7 @@ class Category(
     val slug: String? = null,
     @Column(length = 1000)
     val description: String? = null,
-    @Transient
+    @OneToMany
     val posts: List<Post> = emptyList(),
     val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime? = null

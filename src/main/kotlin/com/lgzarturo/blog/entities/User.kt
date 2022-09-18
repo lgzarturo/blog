@@ -17,7 +17,7 @@ class User(
     @Enumerated(EnumType.STRING)
     val userType: UserType? = null,
     val isActive: Boolean? = null,
-    @Transient
+    @OneToOne
     val author: Author? = null,
     val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime? = null

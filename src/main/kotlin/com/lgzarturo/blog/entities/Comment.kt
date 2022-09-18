@@ -10,8 +10,10 @@ class Comment(
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commentSeqGen")
     @SequenceGenerator(name = "commentSeqGen", sequenceName = "commentSeq", initialValue = 1)
     val id: Long? = null,
-    val parentId: Long? = null,
-    val postId: Long? = null,
+    @ManyToOne
+    val parentComment: Comment? = null,
+    @ManyToOne
+    val post: Post? = null,
     @Column(length = 90)
     val author: String? = null,
     val authorEmail: String? = null,
