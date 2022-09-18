@@ -19,3 +19,16 @@
 - Mantener la consistencia en el código ayuda al equipo.
 - La consistencia es la clave del éxito, por lo tanto, mantener la consistencia en el código es más importante que el estilo correcto.
 - Un buen nombre es mejor que un comentario.
+
+## Responsabilidades del programador
+
+- Aplicar buenas prácticas de desarrollo.
+- Diseñar y plantear soluciones de software.
+- Dar seguimiento a los bugs de forma proactiva.
+- Trabajar en equipo.
+- Comunicarse efectivamente y de forma asertiva para lograr cumplir con los objetivos.
+- Definir tiempos de desarrollo.
+- Cumplir de forma eficiente con las tareas en el menor tiempo posible.
+- Aplicar patrones de diseño y conocer sobre arquitectura de software.
+- Conocer y profundizar en el stack de tecnología que use la empresa.
+- Capacitación continua y efectiva sobre nuevas técnicas y mejores formas de automatizar tareas.
