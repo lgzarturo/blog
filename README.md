@@ -60,18 +60,9 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 
 ### Estructura de datos
 
-#### Tabla `users`
-
-- id - Long(PK)
-- email - String(255)
-- password - String(255)
-- userType - String(20[ADMIN|AUTHOR|USER])
-- isActive - Boolean
-- author - author_id(relationship)
-- createdAt - LocalTimeDate
-- updatedAt - LocalTimeDate
-
 #### Tabla `authors`
+
+> Entidad Author.kt
 
 - id - Long(PK)
 - name - String(90)
@@ -81,10 +72,52 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 - createdAt - LocalTimeDate
 - updatedAt - LocalTimeDate
 
-#### Tabla `posts`
+#### Tabla `categories`
+
+> Entidad Category.kt
 
 - id - Long(PK)
-- parent_id - Long 
+- title - String(180)
+- slug - String(180)
+- description - String(1_000)
+- posts -> category_id(relationship)
+- createdAt - LocalDateTime
+- updatedAt - LocalDateTime
+
+#### Tabla `comments`
+
+> Entidad Comment.kt
+
+- id - Long(PK)
+- parent_id - Long
+- post_id - Long
+- author - String(90)
+- authorEmail - String(255)
+- ipAddress - String(100)
+- content - String(1_000)
+- isApproved - Boolean
+- commentLikes - Long
+- createdAt - LocalDateTime
+- updatedAt - LocalDateTime
+
+#### Tabla `likes_counter`
+
+> Entity LikeCounter.kt
+
+- id - Long(PK)
+- contentType - String(10)
+- contentId - Long
+- ipAddress - String(100)
+- likesNumber - Long
+- createdAt - LocalDateTime
+- updatedAt - LocalDateTime
+
+#### Tabla `posts`
+
+> Entity Post.kt
+
+- id - Long(PK)
+- parent_id - Long
 - title - String(180)
 - slug - String(180)
 - coverImage - String(255)
@@ -102,43 +135,23 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 - createdAt - LocalDateTime
 - updatedAt - LocalDateTime
 
-#### Tabla `categories`
+#### Tabla `users`
+
+> Entity User.kt
 
 - id - Long(PK)
-- title - String(180)
-- slug - String(180)
-- description - String(1_000)
-- posts -> category_id(relationship)
-- createdAt - LocalDateTime
-- updatedAt - LocalDateTime
-
-#### Tabla `comments`
-
-- comment_id - Long
-- parent_id - Long
-- post_id - Long
-- author - String(90)
-- authorEmail - String(255)
-- ipAddress - String(100)
-- content - String(1_000)
-- isApproved - Boolean
-- commentLikes - Long
-- createdAt - LocalDateTime
-- updatedAt - LocalDateTime
-
-#### Tabla `likes_counter`
-
-- id - Long(PK)
-- contentType - String(10)
-- contentId - Long
-- ipAddress - String(100)
-- likesNumber - Long
-- createdAt - LocalDateTime
-- updatedAt - LocalDateTime
+- email - String(255)
+- password - String(255)
+- userType - String(20[ADMIN|AUTHOR|USER])
+- isActive - Boolean
+- author - author_id(relationship)
+- createdAt - LocalTimeDate
+- updatedAt - LocalTimeDate
 
 ### Diagrama del schema
 
 ![Blog DB Schema](docs/assets/database_schema_diagram_er.jpg)
+![Representación de las entidades en H2](docs/assets/jpa-H2-console-database.jpg)
 
 ## Documentación
 
