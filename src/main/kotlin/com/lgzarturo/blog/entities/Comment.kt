@@ -1,8 +1,5 @@
 package com.lgzarturo.blog.entities
 
-import org.hibernate.annotations.CreationTimestamp
-import org.hibernate.annotations.UpdateTimestamp
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -25,9 +22,4 @@ class Comment(
     val content: String? = null,
     val isApproved: Boolean? = null,
     val commentLikes: Long? = null,
-    @Column(nullable = false, updatable = false)
-    @CreationTimestamp
-    val createdAt: LocalDateTime? = null,
-    @UpdateTimestamp
-    val updatedAt: LocalDateTime? = null
-)
+) : BaseEntity()
