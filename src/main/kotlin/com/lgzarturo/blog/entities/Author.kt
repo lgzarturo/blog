@@ -1,6 +1,8 @@
 package com.lgzarturo.blog.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
+import javax.validation.constraints.NotBlank
 
 @Entity
 @Table(name = "authors")
@@ -9,11 +11,13 @@ class Author (
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authorSeqGen")
     @SequenceGenerator(name = "authorSeqGen", sequenceName = "authorSeq", initialValue = 1)
     val id: Long? = null,
+    @NotBlank
     @Column(length = 90)
     val name: String? = null,
     val avatarImage: String? = null,
     @Column(length = 1000)
     val description: String? = null,
+    @JsonIgnore
     @OneToMany
     val posts: List<Post> = emptyList()
 ) : BaseEntity()
