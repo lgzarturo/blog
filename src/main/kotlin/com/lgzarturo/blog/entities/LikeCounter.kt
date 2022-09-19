@@ -15,4 +15,8 @@ class LikeCounter(
     @NotNull
     val contentId: Long? = null,
     val likesNumber: Long = 0L,
-) : BaseEntity()
+) : BaseEntity() {
+    override fun toString(): String {
+        return "LikeCounter(contentType=$contentType, contentId=$contentId)"
+    }
+}

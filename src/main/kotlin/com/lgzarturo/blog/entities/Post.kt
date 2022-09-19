@@ -39,9 +39,15 @@ class Post (
     val menuOrder: Int = 0,
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
     val author: Author? = null,
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     val category: Category? = null,
     val publishedAt: LocalDate? = null,
-) : BaseEntity()
+) : BaseEntity() {
+    override fun toString(): String {
+        return "Post(title=$title)"
+    }
+}

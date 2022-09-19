@@ -24,4 +24,8 @@ class User(
     val isActive: Boolean = true,
     @OneToOne
     val author: Author? = null,
-) : BaseEntity()
+) : BaseEntity() {
+    override fun toString(): String {
+        return "User(email=$email)"
+    }
+}

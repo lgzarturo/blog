@@ -18,6 +18,10 @@ class Author (
     @Column(length = 1000)
     val description: String? = null,
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE], orphanRemoval = true)
     val posts: List<Post> = emptyList()
-) : BaseEntity()
+) : BaseEntity() {
+    override fun toString(): String {
+        return "Author(name=$name)"
+    }
+}

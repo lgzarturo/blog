@@ -15,6 +15,7 @@ class Comment(
     val parentComment: Comment? = null,
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
     val post: Post? = null,
     @NotBlank
     @Column(length = 90)
@@ -28,4 +29,8 @@ class Comment(
     val content: String? = null,
     val isApproved: Boolean = false,
     val commentLikes: Long = 0L,
-) : BaseEntity()
+) : BaseEntity() {
+    override fun toString(): String {
+        return "Comment(content=$content)"
+    }
+}
