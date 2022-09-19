@@ -4,7 +4,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "likes_counter")
+@Table(name = "likes_counter", uniqueConstraints=[UniqueConstraint(columnNames=["contentType", "contentId"])])
 class LikeCounter(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

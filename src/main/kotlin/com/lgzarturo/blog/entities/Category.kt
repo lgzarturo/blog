@@ -5,7 +5,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "categories")
+@Table(name = "categories", uniqueConstraints=[UniqueConstraint(columnNames=["title", "slug"])])
 class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorySeqGen")

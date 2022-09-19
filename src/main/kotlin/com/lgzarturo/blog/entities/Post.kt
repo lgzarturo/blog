@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 
 
 @Entity
-@Table(name = "posts")
+@Table(name = "posts", uniqueConstraints=[UniqueConstraint(columnNames=["title", "slug"])])
 class Post (
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postSeqGen")
@@ -51,6 +51,11 @@ class Post (
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val comments: List<Comment> = emptyList(),
     val publishedAt: LocalDate? = null,
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinTable(name = "post_tags",
+        joinColumns = [JoinColumn(name = "post_id")],
+        inverseJoinColumns = [JoinColumn(name = "tag_id")])
+    val tags: MutableSet<Tag> = mutableSetOf()
 ) : BaseEntity() {
     override fun toString(): String {
         return "Post(title=$title)"

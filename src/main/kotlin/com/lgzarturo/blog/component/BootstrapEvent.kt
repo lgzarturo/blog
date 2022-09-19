@@ -17,6 +17,7 @@ class BootstrapEvent(
     private val commentRepository: CommentRepository,
     private val likeCounterRepository: LikeCounterRepository,
     private val postRepository: PostRepository,
+    private val tagRepository: TagRepository,
     private val userRepository: UserRepository) : ApplicationListener<ApplicationReadyEvent> {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -27,6 +28,16 @@ class BootstrapEvent(
         val authorTwo = Author(name = "John Doe", avatarImage = "https://picsum.photos/seed/picsum/200/300", description = "Escritor de novelas")
         val categoryOne = Category(title = "Programación", slug = "programming", description = "Artículos sobre programación")
         val categoryTwo = Category(title = "Diseño", slug = "design", description = "Artículos sobre diseño")
+        val tagOne = Tag(
+            name = "Programación",
+            slug = "programming"
+        )
+        val tagTwo = Tag(
+            name = "Administración",
+            slug = "company-management"
+        )
+        tagRepository.save(tagOne)
+        tagRepository.save(tagTwo)
         val postOne = Post(
             title = "Programar es un arte",
             slug = "programar-es-un-arte",
@@ -73,5 +84,8 @@ class BootstrapEvent(
             contentId = 1,
             likesNumber = 2
         ))
+        postOne.tags.add(tagOne)
+        postOne.tags.add(tagTwo)
+        postRepository.save(postOne)
     }
 }
