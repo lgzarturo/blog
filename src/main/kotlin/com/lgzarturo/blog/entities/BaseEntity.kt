@@ -7,12 +7,7 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
-import java.util.Date
-import javax.persistence.Column
-import javax.persistence.MappedSuperclass
-import javax.persistence.Temporal
-import javax.persistence.TemporalType
-import javax.persistence.Version
+import javax.persistence.*
 
 @MappedSuperclass
 open class BaseEntity (
@@ -20,14 +15,14 @@ open class BaseEntity (
     val version: Int? = null,
     @Column(nullable = false, updatable = false)
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    val createdAt: Date? = null,
+    @CreationTimestamp
+    val createdAt: LocalDateTime? = null,
     @CreatedBy
     val createdBy: String? = null,
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    val updatedAt: Date? = null,
+    @UpdateTimestamp
+    val updatedAt: LocalDateTime? = null,
     @LastModifiedBy
     val updatedBy: String? = null,
-    val isDeleted: Boolean = false
+    val isDeleted: Boolean = false,
 )
