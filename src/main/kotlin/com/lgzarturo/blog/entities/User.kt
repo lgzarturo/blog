@@ -23,6 +23,7 @@ class User(
     val userType: UserType = UserType.USER,
     val isActive: Boolean = true,
     @OneToOne
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     val author: Author? = null,
 ) : BaseEntity() {
     override fun toString(): String {

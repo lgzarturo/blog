@@ -20,7 +20,7 @@ class Category(
     @Column(length = 1000)
     val description: String? = null,
     @JsonIgnore
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE], orphanRemoval = true)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val posts: List<Post> = emptyList()
 ) : BaseEntity() {
     override fun toString(): String {

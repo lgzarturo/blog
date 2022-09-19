@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.lgzarturo.blog.common.PostType
 import java.time.LocalDate
 import javax.persistence.*
@@ -14,7 +15,8 @@ class Post (
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postSeqGen")
     @SequenceGenerator(name = "postSeqGen", sequenceName = "postSeq", initialValue = 1)
     val id: Long? = null,
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "parent_post_id", nullable = true, referencedColumnName = "id")
     val partentPost: Post? = null,
     @NotBlank
     @Column(length = 180)
@@ -38,13 +40,16 @@ class Post (
     val hasPage: Boolean = false,
     val menuOrder: Int = 0,
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "author_id", nullable = false, referencedColumnName = "id")
     val author: Author? = null,
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "id")
     val category: Category? = null,
+    @JsonIgnore
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    val comments: List<Comment> = emptyList(),
     val publishedAt: LocalDate? = null,
 ) : BaseEntity() {
     override fun toString(): String {

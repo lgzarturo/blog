@@ -11,11 +11,12 @@ class Comment(
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "commentSeqGen")
     @SequenceGenerator(name = "commentSeqGen", sequenceName = "commentSeq", initialValue = 1)
     val id: Long? = null,
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "parent_comment_id", nullable = true, referencedColumnName = "id")
     val parentComment: Comment? = null,
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "post_id", nullable = false, referencedColumnName = "id")
     val post: Post? = null,
     @NotBlank
     @Column(length = 90)

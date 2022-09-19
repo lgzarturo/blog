@@ -18,7 +18,7 @@ class Author (
     @Column(length = 1000)
     val description: String? = null,
     @JsonIgnore
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = [CascadeType.REMOVE], orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val posts: List<Post> = emptyList()
 ) : BaseEntity() {
     override fun toString(): String {
