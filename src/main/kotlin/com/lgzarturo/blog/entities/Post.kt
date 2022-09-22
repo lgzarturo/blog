@@ -1,6 +1,8 @@
 package com.lgzarturo.blog.entities
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.lgzarturo.blog.common.PostType
 import java.time.LocalDate
 import javax.persistence.*
@@ -39,6 +41,7 @@ class Post (
     val postComments: Long = 0L,
     val hasPage: Boolean = false,
     val menuOrder: Int = 0,
+    @JsonBackReference
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(name = "author_id", nullable = false, referencedColumnName = "id")
@@ -51,6 +54,7 @@ class Post (
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val comments: List<Comment> = emptyList(),
     val publishedAt: LocalDate? = null,
+    @JsonManagedReference
     @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinTable(name = "post_tags",
         joinColumns = [JoinColumn(name = "post_id")],

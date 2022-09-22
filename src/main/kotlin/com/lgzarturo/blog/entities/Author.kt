@@ -1,6 +1,6 @@
 package com.lgzarturo.blog.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -13,11 +13,11 @@ class Author (
     val id: Long? = null,
     @NotBlank
     @Column(length = 90)
-    val name: String? = null,
-    val avatarImage: String? = null,
+    var name: String? = null,
+    var avatarImage: String? = null,
     @Column(length = 1000)
-    val description: String? = null,
-    @JsonIgnore
+    var description: String? = null,
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val posts: List<Post> = emptyList()
 ) : BaseEntity() {

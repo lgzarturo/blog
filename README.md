@@ -25,6 +25,18 @@ Plantilla para crear el proyecto desde la página de start.spring.io
 
 El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de tipo autor y un visitante.
 
+### Pruebas
+
+En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con la extension `*.http`, se pueden usar para hacer consultas en los endpoints, el Intellj IDEA Ultimate tiene de forma nativa un plugin que soporta estos archivos realizar solicitudes http y ofrece un método para generar la versión curl de cada endpoint.
+
+**Ejemplo**
+- Abrir el archivo: AuthorControllerApiTest.http
+- Posicionar el cursor en el método que queremos exportar
+- Dar clic en el botón `Convert to Curl and Copy`
+- Ahora la instrucción en formato Curl estará en el Clipboard y la podemos pegar en cualquier cliente Rest como Postman.
+
+![AuthorControllerApiTest.http](docs/assets/api-test_http_to_curl.jpg)
+
 #### Administrador
 
 - Registrar un autor en el blog

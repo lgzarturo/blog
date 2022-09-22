@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.entities
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -14,6 +15,7 @@ class Tag (
     val name: String? = null,
     @NotBlank
     val slug: String? = null,
+    @JsonBackReference
     @ManyToMany(mappedBy = "tags")
     val posts: MutableSet<Post> = mutableSetOf()
 ) : BaseEntity() {

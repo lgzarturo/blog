@@ -1,0 +1,36 @@
+###
+GET /blog/api/v1/authors
+Host: localhost:9090
+
+###
+POST /blog/api/v1/authors
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "description": "Author anónimo"
+}
+
+###
+GET /blog/api/v1/authors/{{id}}
+Host: localhost:9090
+
+###
+GET /blog/api/v1/authors/{{id}}/posts
+Host: localhost:9090
+
+###
+PUT /blog/api/v1/authors/{{id}}
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "name": "John Doe (updated)",
+    "description": "Author anónimo (updated)",
+    "avatarImage": "https://picsum.photos/seed/picsum/200/300"
+}
+
+###
+DELETE /blog/api/v1/authors/{{id}}
+Host: localhost:9090
