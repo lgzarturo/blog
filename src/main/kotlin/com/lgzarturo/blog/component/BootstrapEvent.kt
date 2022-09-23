@@ -24,8 +24,14 @@ class BootstrapEvent(
 
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
         log.info("Se ejecuta al iniciar el proyecto")
-        val authorOne = Author(name = "Miguel", avatarImage = "https://picsum.photos/seed/picsum/200/300", description = "Autor y creador de contenido")
-        val authorTwo = Author(name = "John Doe", avatarImage = "https://picsum.photos/seed/picsum/200/300", description = "Escritor de novelas")
+        val authorOne = Author()
+        authorOne.name = "Miguel"
+        authorOne.avatarImage = "https://picsum.photos/seed/picsum/200/300"
+        authorOne.description = "Autor y creador de contenido"
+        val authorTwo = Author()
+        authorTwo.name = "John Doe"
+        authorTwo.avatarImage = "https://picsum.photos/seed/picsum/200/300"
+        authorTwo.description = "Escritor de novelas"
         val categoryOne = Category(title = "Programación", slug = "programming", description = "Artículos sobre programación")
         val categoryTwo = Category(title = "Diseño", slug = "design", description = "Artículos sobre diseño")
         val tagOne = Tag(
