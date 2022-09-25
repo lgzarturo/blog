@@ -13,12 +13,11 @@ class Category(
     val id: Long? = null,
     @NotBlank
     @Column(length = 180)
-    val title: String? = null,
-    @NotBlank
+    var title: String? = null,
     @Column(length = 180)
-    val slug: String? = null,
+    var slug: String? = null,
     @Column(length = 1000)
-    val description: String? = null,
+    var description: String? = null,
     @JsonIgnore
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val posts: List<Post> = emptyList()

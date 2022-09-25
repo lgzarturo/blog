@@ -1,0 +1,35 @@
+###
+GET /blog/api/v1/categories
+Host: localhost:9090
+
+###
+POST /blog/api/v1/categories
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "title": "Ecommerce",
+    "description": "Marketing Digital"
+}
+
+###
+GET /blog/api/v1/categories/{{id}}
+Host: localhost:9090
+
+###
+GET /blog/api/v1/categories/{{id}}/posts
+Host: localhost:9090
+
+###
+PUT /blog/api/v1/categories/{{id}}
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "title": "Ecommerce (updated)",
+    "description": "Marketing Digital (updated)"
+}
+
+###
+DELETE /blog/api/v1/categories/{{id}}
+Host: localhost:9090

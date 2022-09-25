@@ -23,6 +23,9 @@ repositories {
 }
 
 dependencies {
+    // Librerías de terceros
+    implementation("com.github.slugify:slugify:3.0.2")
+    // Dependencias de spring boot
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
