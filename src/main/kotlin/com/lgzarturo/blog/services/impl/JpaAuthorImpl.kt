@@ -2,15 +2,22 @@ package com.lgzarturo.blog.services.impl
 
 import com.lgzarturo.blog.entities.Author
 import com.lgzarturo.blog.entities.Post
+import com.lgzarturo.blog.models.AuthorRequest
 import com.lgzarturo.blog.repositories.AuthorRepository
 import com.lgzarturo.blog.services.AuthorService
+import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
+import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
 import java.util.Optional
 import kotlin.jvm.Throws
 
 @Service
-class JpaAuthorImpl(private val authorRepository: AuthorRepository) : AuthorService {
+class JpaAuthorImpl(
+    private val authorRepository: AuthorRepository,
+    private val modelMapper: ModelMapper
+    ) : AuthorService {
+
     private val log = LoggerFactory.getLogger(this::class.java)
 
     override fun getAll(): List<Author> {
@@ -29,18 +36,17 @@ class JpaAuthorImpl(private val authorRepository: AuthorRepository) : AuthorServ
         return findById(id).orElse(null)
     }
 
-    override fun save(author: Author): Author? {
+    override fun save(authorRequest: AuthorRequest): Author? {
         log.trace("Guardando datos del author")
+        val author = modelMapper.map(authorRequest, Author::class.java)
         return authorRepository.save(author)
     }
 
-    override fun update(id: Long, author: Author): Author? {
+    override fun update(id: Long, authorRequest: AuthorRequest): Author? {
         log.trace("Actualizar el author con el id:$id")
         val authorPersisted = findById(id).orElse(null) ?: return null
-        authorPersisted.name = author.name
-        authorPersisted.description = author.description
-        authorPersisted.avatarImage = author.avatarImage
-        return save(authorPersisted)
+        BeanUtils.copyProperties(authorRequest, authorPersisted)
+        return authorRepository.save(authorPersisted)
     }
 
     @Throws(Exception::class)

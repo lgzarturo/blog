@@ -2,6 +2,7 @@ package com.lgzarturo.blog.controllers
 
 import com.lgzarturo.blog.entities.Category
 import com.lgzarturo.blog.entities.Post
+import com.lgzarturo.blog.models.CategoryRequest
 import com.lgzarturo.blog.services.CategoryService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -24,7 +25,7 @@ class CategoryController(private val categoryService: CategoryService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody request: Category): ResponseEntity<Category> {
+    fun create(@Valid @RequestBody request: CategoryRequest): ResponseEntity<Category> {
         return ResponseEntity.ok(categoryService.save(request))
     }
 
@@ -35,7 +36,7 @@ class CategoryController(private val categoryService: CategoryService) {
     }
 
     @PutMapping("{id}")
-    fun update(@PathVariable id: Long, @Valid @RequestBody request: Category): ResponseEntity<Category> {
+    fun update(@PathVariable id: Long, @Valid @RequestBody request: CategoryRequest): ResponseEntity<Category> {
         return ResponseEntity.ok(categoryService.update(id, request))
     }
 

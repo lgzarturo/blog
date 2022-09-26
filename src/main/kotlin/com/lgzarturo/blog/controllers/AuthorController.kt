@@ -2,6 +2,7 @@ package com.lgzarturo.blog.controllers
 
 import com.lgzarturo.blog.entities.Author
 import com.lgzarturo.blog.entities.Post
+import com.lgzarturo.blog.models.AuthorRequest
 import com.lgzarturo.blog.services.AuthorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -31,7 +32,7 @@ class AuthorController(private val authorService: AuthorService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody request: Author): ResponseEntity<Author> {
+    fun create(@Valid @RequestBody request: AuthorRequest): ResponseEntity<Author> {
         return ResponseEntity.ok(authorService.save(request))
     }
 
@@ -42,7 +43,7 @@ class AuthorController(private val authorService: AuthorService) {
     }
 
     @PutMapping("{id}")
-    fun update(@PathVariable id: Long, @Valid @RequestBody request: Author): ResponseEntity<Author> {
+    fun update(@PathVariable id: Long, @Valid @RequestBody request: AuthorRequest): ResponseEntity<Author> {
         return ResponseEntity.ok(authorService.update(id, request))
     }
 

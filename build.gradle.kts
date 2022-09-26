@@ -25,6 +25,7 @@ repositories {
 dependencies {
     // Librerías de terceros
     implementation("com.github.slugify:slugify:3.0.2")
+    implementation("org.modelmapper:modelmapper:3.1.0")
     // Dependencias de spring boot
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

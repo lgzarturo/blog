@@ -1,15 +1,21 @@
 package com.lgzarturo.blog.services.impl
 
-import com.github.slugify.Slugify
 import com.lgzarturo.blog.entities.Category
 import com.lgzarturo.blog.entities.Post
+import com.lgzarturo.blog.models.CategoryRequest
 import com.lgzarturo.blog.repositories.CategoryRepository
 import com.lgzarturo.blog.services.CategoryService
+import org.modelmapper.ModelMapper
+import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class JpaCategoryImpl(private val categoryRepository: CategoryRepository) : CategoryService {
+class JpaCategoryImpl(
+    private val categoryRepository: CategoryRepository,
+    private val modelMapper: ModelMapper
+) : CategoryService {
+
     override fun getAll(): List<Category> {
         return categoryRepository.findAll()
     }
@@ -23,17 +29,15 @@ class JpaCategoryImpl(private val categoryRepository: CategoryRepository) : Cate
         return findById(id).orElse(null)
     }
 
-    override fun save(category: Category): Category? {
-        category.slug = category.title?.let { generateSlugifyTitle(it) }
+    override fun save(categoryRequest: CategoryRequest): Category? {
+        val category = modelMapper.map(categoryRequest, Category::class.java)
         return categoryRepository.save(category)
     }
 
-    override fun update(id: Long, category: Category): Category? {
+    override fun update(id: Long, categoryRequest: CategoryRequest): Category? {
         val categoryPersisted = findById(id).orElse(null) ?: return null
-        categoryPersisted.title = category.title
-        categoryPersisted.slug = category.title?.let { generateSlugifyTitle(it) }
-        categoryPersisted.description = category.description
-        return save(categoryPersisted)
+        BeanUtils.copyProperties(categoryRequest, categoryPersisted)
+        return categoryRepository.save(categoryPersisted)
     }
 
     override fun delete(id: Long) {
@@ -48,10 +52,5 @@ class JpaCategoryImpl(private val categoryRepository: CategoryRepository) : Cate
 
     private fun findById(id: Long): Optional<Category> {
         return categoryRepository.findById(id)
-    }
-
-    private fun generateSlugifyTitle(title: String): String {
-        val slug = Slugify.builder().locale(Locale.ENGLISH).build()
-        return slug.slugify(title)
     }
 }
