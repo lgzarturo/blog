@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.entities
+package com.lgzarturo.blog.models.entities
 
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*

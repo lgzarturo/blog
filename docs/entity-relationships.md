@@ -1,6 +1,6 @@
 # Relaciones en JPA
 
-Cuando usamos relaciones bidireccionales hay dos formas de evitar recursiones infinitas
+Cuando usamos relaciones bidireccionales hay dos formas de evitar referencias circulares infinitas
 
 ## Evitando propiedades
 

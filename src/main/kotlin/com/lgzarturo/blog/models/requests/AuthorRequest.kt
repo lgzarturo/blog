@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.models
+package com.lgzarturo.blog.models.requests
 
 import org.hibernate.validator.constraints.URL
 import javax.validation.constraints.NotBlank

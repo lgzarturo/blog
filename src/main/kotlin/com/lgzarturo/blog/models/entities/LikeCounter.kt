@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.entities
+package com.lgzarturo.blog.models.entities
 
 import javax.persistence.*
 import javax.validation.constraints.NotNull

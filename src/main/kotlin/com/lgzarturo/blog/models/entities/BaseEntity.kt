@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.entities
+package com.lgzarturo.blog.models.entities
 
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp

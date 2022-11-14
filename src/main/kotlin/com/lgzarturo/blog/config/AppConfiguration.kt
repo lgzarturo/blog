@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.configurations
+package com.lgzarturo.blog.config
 
 import org.modelmapper.ModelMapper
 import org.springframework.context.annotation.Bean

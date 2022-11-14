@@ -1,9 +1,9 @@
-package com.lgzarturo.blog.entities
+package com.lgzarturo.blog.models.entities
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import com.lgzarturo.blog.common.PostType
+import com.lgzarturo.blog.models.commons.PostType
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -19,7 +19,7 @@ class Post (
     val id: Long? = null,
     @ManyToOne(optional = true)
     @JoinColumn(name = "parent_post_id", nullable = true, referencedColumnName = "id")
-    val partentPost: Post? = null,
+    val parentPost: Post? = null,
     @NotBlank
     @Column(length = 180)
     val title: String? = null,

@@ -4,7 +4,7 @@ Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle + Java 17
 
 > El objetivo es que pueda servir como guía para el aprendizaje, lo más importante será histórico de Git, así como los ejemplos propuestos de la estructura y buenas prácticas al diseñar una Api Rest
 
-## Proyecto 
+## Proyecto
 
 Plantilla para crear el proyecto desde la página de start.spring.io
 
@@ -12,7 +12,7 @@ Plantilla para crear el proyecto desde la página de start.spring.io
 
 ### Estructura del proyecto
 
-- **configurations**: Se definen los estereotipos @Configuration para personalizar los recursos de la aplicación. 
+- **configurations**: Se definen los estereotipos @Configuration para personalizar los recursos de la aplicación.
 - **controllers**: Capa con los controladores de la aplicación de tipo RestFul.
 - **entities**: Capa para la representación de las tablas en JPA.
 - **exceptions**: Se especifican las excepciones para el control de respuesta del API Rest.
@@ -27,7 +27,7 @@ El Api debe soportar tres tipos de usuarios, uno de tipo administrador, uno de t
 
 ### Pruebas
 
-En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con la extension `*.http`, se pueden usar para hacer consultas en los endpoints, el Intellj IDEA Ultimate tiene de forma nativa un plugin que soporta estos archivos realizar solicitudes http y ofrece un método para generar la versión curl de cada endpoint.
+En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con la extension `*.http`, se pueden usar para hacer consultas en los endpoints, el Intellij IDEA Ultimate tiene de forma nativa un plugin que soporta estos archivos realizar solicitudes http y ofrece un método para generar la versión curl de cada endpoint.
 
 **Ejemplo**
 - Abrir el archivo: AuthorControllerApiTest.http

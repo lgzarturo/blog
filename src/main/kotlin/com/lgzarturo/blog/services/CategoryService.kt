@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.services
 
-import com.lgzarturo.blog.entities.Category
-import com.lgzarturo.blog.entities.Post
-import com.lgzarturo.blog.models.CategoryRequest
+import com.lgzarturo.blog.models.entities.Category
+import com.lgzarturo.blog.models.entities.Post
+import com.lgzarturo.blog.models.requests.CategoryRequest
 
 interface CategoryService {
     fun getAll(): List<Category>

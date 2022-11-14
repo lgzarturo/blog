@@ -1,6 +1,6 @@
-package com.lgzarturo.blog.entities
+package com.lgzarturo.blog.models.entities
 
-import com.lgzarturo.blog.common.UserType
+import com.lgzarturo.blog.models.commons.UserType
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank

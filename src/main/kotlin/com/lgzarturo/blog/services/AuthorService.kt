@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.services
 
-import com.lgzarturo.blog.entities.Author
-import com.lgzarturo.blog.entities.Post
-import com.lgzarturo.blog.models.AuthorRequest
+import com.lgzarturo.blog.models.entities.Author
+import com.lgzarturo.blog.models.entities.Post
+import com.lgzarturo.blog.models.requests.AuthorRequest
 
 interface AuthorService {
     fun getAll(): List<Author>

@@ -1,6 +1,6 @@
 # Capas del Spring Boot
 
-> En este proyecto de blog se usarán las 5 capas para representar las operaciones básicas de un CRUD y que permiten definir un estándar en la representación de proyectos. 
+> En este proyecto de blog se usarán las 5 capas para representar las operaciones básicas de un CRUD y que permiten definir un estándar en la representación de proyectos.
 
 - **Interfaces**: Serán los contratos para implementar las funciones en las clases que usan dicha interfaz.
 - **Services**: Se implementan las interfaces y sirven para representar la lógica de negocios.

@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.entities.Category
-import com.lgzarturo.blog.entities.Post
-import com.lgzarturo.blog.models.CategoryRequest
+import com.lgzarturo.blog.models.entities.Category
+import com.lgzarturo.blog.models.entities.Post
+import com.lgzarturo.blog.models.requests.CategoryRequest
 import com.lgzarturo.blog.repositories.CategoryRepository
 import com.lgzarturo.blog.services.CategoryService
 import org.modelmapper.ModelMapper

@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.entities.Author
-import com.lgzarturo.blog.entities.Post
-import com.lgzarturo.blog.models.AuthorRequest
+import com.lgzarturo.blog.models.entities.Author
+import com.lgzarturo.blog.models.entities.Post
+import com.lgzarturo.blog.models.requests.AuthorRequest
 import com.lgzarturo.blog.repositories.AuthorRepository
 import com.lgzarturo.blog.services.AuthorService
 import org.modelmapper.ModelMapper

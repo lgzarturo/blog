@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.component
 
-import com.lgzarturo.blog.common.PostType
-import com.lgzarturo.blog.common.UserType
-import com.lgzarturo.blog.entities.*
+import com.lgzarturo.blog.models.commons.PostType
+import com.lgzarturo.blog.models.commons.UserType
+import com.lgzarturo.blog.models.entities.*
 import com.lgzarturo.blog.repositories.*
 import org.slf4j.LoggerFactory
 import org.springframework.boot.context.event.ApplicationReadyEvent
@@ -80,16 +80,20 @@ class BootstrapEvent(
         postRepository.save(postOne)
         userRepository.save(userOne)
         commentRepository.save(commentOne)
-        likeCounterRepository.save(LikeCounter(
+        likeCounterRepository.save(
+            LikeCounter(
             contentType = Post::class.java.simpleName,
             contentId = 1,
             likesNumber = 10
-        ))
-        likeCounterRepository.save(LikeCounter(
+        )
+        )
+        likeCounterRepository.save(
+            LikeCounter(
             contentType = Comment::class.java.simpleName,
             contentId = 1,
             likesNumber = 2
-        ))
+        )
+        )
         postOne.tags.add(tagOne)
         postOne.tags.add(tagTwo)
         postRepository.save(postOne)
