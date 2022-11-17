@@ -27,6 +27,7 @@ dependencies {
     implementation("com.github.slugify:slugify:3.0.2")
     implementation("org.modelmapper:modelmapper:3.1.0")
     // Dependencias de spring boot
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
