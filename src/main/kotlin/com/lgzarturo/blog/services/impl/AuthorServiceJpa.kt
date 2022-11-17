@@ -13,7 +13,7 @@ import java.util.Optional
 import kotlin.jvm.Throws
 
 @Service
-class AuthorJpa(
+class AuthorServiceJpa(
     private val authorRepository: AuthorRepository,
     private val modelMapper: ModelMapper
     ) : AuthorService {

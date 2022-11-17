@@ -34,7 +34,7 @@ class User(
         joinColumns = [JoinColumn(name = "user_id")],
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
-    val authorities: Set<Role> = HashSet()
+    var authorities: Set<Role> = HashSet()
 ) : BaseEntity() {
     override fun toString(): String {
         return "User(email=$email)"

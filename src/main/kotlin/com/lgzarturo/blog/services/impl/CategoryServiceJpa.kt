@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CategoryJpa(
+class CategoryServiceJpa(
     private val categoryRepository: CategoryRepository,
     private val modelMapper: ModelMapper
 ) : CategoryService {

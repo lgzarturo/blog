@@ -4,6 +4,7 @@ import com.lgzarturo.blog.models.entities.Role
 import com.lgzarturo.blog.models.entities.User
 import com.lgzarturo.blog.repositories.RoleRepository
 import com.lgzarturo.blog.repositories.UserRepository
+import com.lgzarturo.blog.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
@@ -19,22 +20,17 @@ import org.springframework.stereotype.Component
 class StartProject {
     private final val logger = LoggerFactory.getLogger(this::class.java)
 
+    /**
+     * Insertando usuario por medio del servicio `UserService`
+     */
     @Bean
-    fun run(userRepository: UserRepository, roleRepository: RoleRepository) = CommandLineRunner {
+    fun run(userService: UserService) = CommandLineRunner {
         logger.info("Starting Blog project")
         logger.info("================================")
-        /**
-         * Insertando usuario en la base de datos al iniciar el proyecto.
-         */
-        roleRepository.save(Role(authority = "USER"))
-        val roles = HashSet<Role>()
-        roles.add(roleRepository.findByAuthority("USER").get())
-        val user = User(
-            email = "admin@example.com",
-            password = "super-secret-password",
-            authorities = roles
-        )
-        userRepository.save(user)
-        logger.info("Hay ${userRepository.count()} numero de usuarios en la base...")
+        userService.register(User(
+            email = "user@example.com",
+            password = "one-password"
+        ))
+        logger.info("Hay ${userService.countUsers()} numero de usuarios en la base...")
     }
 }

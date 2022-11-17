@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class PostJpa(
+class PostServiceJpa(
     private val postRepository: PostRepository,
     private val modelMapper: ModelMapper
 ) : PostService {
