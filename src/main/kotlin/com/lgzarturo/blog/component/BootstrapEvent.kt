@@ -10,6 +10,19 @@ import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 
+
+/**
+ * Este componente define un evento para que se ejecute
+ * al terminar el proceso de arranque de Spring Boot.
+ *
+ * En el orden de arranque primero se inicia el CommandLineRunner
+ * y después se invoca el evento cuando esta lista la aplicación
+ * mediante el evento ApplicationReadyEvent.
+ *
+ * En el ejemplo del proyecto primero se ejecuta la clase
+ * DevelopmentInitializer, luego la clase StartProject y por último
+ * se invoca la clase BootstrapEvent.
+ */
 @Component
 class BootstrapEvent(
     private val authorRepository: AuthorRepository,
