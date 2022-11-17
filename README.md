@@ -170,6 +170,7 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 - [Dependencias básicas para Spring Boot](docs/spring-boot-dependencies.md)
 - [Capas del proyecto y tips de programación](docs/spring-boot-project.md)
 - [Actualizando a Spring Boot 2.7.5](docs/spring-boot-migration.md)
+- [Configurando la base de datos H2 para desarrollo y que se persista en disco](docs/database-h2-development.md)
 
 ## Referencias
 
