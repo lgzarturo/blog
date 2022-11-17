@@ -23,6 +23,9 @@ class StartProject {
     fun run(userRepository: UserRepository, roleRepository: RoleRepository) = CommandLineRunner {
         logger.info("Starting Blog project")
         logger.info("================================")
+        /**
+         * Insertando usuario en la base de datos al iniciar el proyecto.
+         */
         roleRepository.save(Role(authority = "USER"))
         val roles = HashSet<Role>()
         roles.add(roleRepository.findByAuthority("USER").get())
