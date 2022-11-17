@@ -34,9 +34,18 @@ class HomeController {
     )
 
     @GetMapping
-    fun index(@RequestBody request: Request?, @RequestParam name: String?): Response {
+    fun index(@RequestParam name: String?): Response {
         log.debug("Procesando la solicitud GET de la función index() name={}", name)
         var message = "Hola mundo ${name?:"!"}"
+        return Response(
+            status = HttpStatus.OK.value(),
+            message = message
+        )
+    }
+
+    @PostMapping
+    fun index(@RequestBody request: Request?): Response {
+        var message = "Hola mundo"
         if (request != null) {
             message += ", tenemos un mensaje de ${request.name} y tiene ${request.age} años de antigüedad."
         }
