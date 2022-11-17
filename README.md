@@ -1,6 +1,6 @@
 # Blog
 
-Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle + Java 17
+Ejemplo de API Rest Blog con Spring Boot 2.7.5 + Kotlin + Gradle + Java 17
 
 > El objetivo es que pueda servir como guía para el aprendizaje, lo más importante será histórico de Git, así como los ejemplos propuestos de la estructura y buenas prácticas al diseñar una Api Rest
 
@@ -8,7 +8,7 @@ Ejemplo de API Rest Blog con Spring Boot 2.7.3 + Kotlin + Gradle + Java 17
 
 Plantilla para crear el proyecto desde la página de start.spring.io
 
-> https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.7.3&packaging=jar&jvmVersion=17&groupId=com.lgzarturo&artifactId=demo&name=demo&description=Ejemplo%20de%20API%20Rest%20Blog%20con%20Spring%20Boot%20%2B%20Kotlin%20%2B%20Gradle&packageName=com.lgzarturo.demo&dependencies=web
+> https://start.spring.io/#!type=gradle-project&language=kotlin&platformVersion=2.7.5&packaging=jar&jvmVersion=17&groupId=com.lgzarturo&artifactId=demo&name=demo&description=API%20Rest%20Blog%20con%20Spring%20Boot%202.7.5%20%2B%20Kotlin%20%2B%20Gradle%20%2B%20Java%2017&packageName=com.lgzarturo.demo&dependencies=devtools,configuration-processor,web,validation,data-jpa
 
 ### Estructura del proyecto
 
@@ -166,10 +166,10 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 
 ## Documentación
 
-- [Actualizando a Spring Boot 2.7.5](docs/spring-boot-migration.md)
 - [Ideas para construir una REST API](docs/api-rest.md)
 - [Dependencias básicas para Spring Boot](docs/spring-boot-dependencies.md)
 - [Capas del proyecto y tips de programación](docs/spring-boot-project.md)
+- [Actualizando a Spring Boot 2.7.5](docs/spring-boot-migration.md)
 
 ## Referencias
 

@@ -1,8 +1,7 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.requests.PostRequest
+import com.lgzarturo.blog.models.dtos.PostRequest
 import com.lgzarturo.blog.repositories.PostRepository
 import com.lgzarturo.blog.services.PostService
 import org.modelmapper.ModelMapper
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class JpaPostImpl(
+class PostJpa(
     private val postRepository: PostRepository,
     private val modelMapper: ModelMapper
 ) : PostService {

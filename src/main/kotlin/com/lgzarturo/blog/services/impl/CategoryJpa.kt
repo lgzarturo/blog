@@ -2,7 +2,7 @@ package com.lgzarturo.blog.services.impl
 
 import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.requests.CategoryRequest
+import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.repositories.CategoryRepository
 import com.lgzarturo.blog.services.CategoryService
 import org.modelmapper.ModelMapper
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class JpaCategoryImpl(
+class CategoryJpa(
     private val categoryRepository: CategoryRepository,
     private val modelMapper: ModelMapper
 ) : CategoryService {

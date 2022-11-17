@@ -2,7 +2,7 @@ package com.lgzarturo.blog.controllers
 
 import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.requests.CategoryRequest
+import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.services.CategoryService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

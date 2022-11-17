@@ -3,7 +3,7 @@ package com.lgzarturo.blog.models.entities
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonManagedReference
-import com.lgzarturo.blog.models.commons.PostType
+import com.lgzarturo.blog.models.enums.PostType
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

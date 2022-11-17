@@ -1,4 +1,4 @@
-package com.lgzarturo.blog.models.requests
+package com.lgzarturo.blog.models.dtos
 
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size

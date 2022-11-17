@@ -1,7 +1,7 @@
 package com.lgzarturo.blog.component
 
-import com.lgzarturo.blog.models.commons.PostType
-import com.lgzarturo.blog.models.commons.UserType
+import com.lgzarturo.blog.models.enums.PostType
+import com.lgzarturo.blog.models.enums.UserType
 import com.lgzarturo.blog.models.entities.*
 import com.lgzarturo.blog.repositories.*
 import org.slf4j.LoggerFactory
