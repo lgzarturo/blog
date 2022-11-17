@@ -166,6 +166,7 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 
 ## Documentación
 
+- [Actualizando a Spring Boot 2.7.5](docs/spring-boot-migration.md)
 - [Ideas para construir una REST API](docs/api-rest.md)
 - [Dependencias básicas para Spring Boot](docs/spring-boot-dependencies.md)
 - [Capas del proyecto y tips de programación](docs/spring-boot-project.md)

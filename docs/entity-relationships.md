@@ -10,4 +10,4 @@ Se puede ignorar las propiedades o colecciones que causan la referencia circular
 
 Con las anotaciones `@JsonManagedReference`, `@JsonBackReference` se puede especificar que relación se va a serializar y cuáles son los datos que se van a omitir, respectivamente.
 
-> Si fuera necesario podemos crear una clase para definir de forma específica como se van a serializar los datos, para esto podemos especificar la anotación `@JsonSerialize(using = CustomSerializer::class)`, normalmente en la práctica esto no es muy común debido al uso de DTOs para transformar los datos.
+> Si fuera necesario podemos crear una clase para definir de forma específica como se van a serializar los datos, para esto podemos especificar la anotación `@JsonSerialize(using = CustomSerializer::class)`, normalmente en la práctica esto no es muy común debido al uso de clases DTO para transformar los datos.
