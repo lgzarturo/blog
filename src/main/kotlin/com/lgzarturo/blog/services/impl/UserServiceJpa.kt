@@ -1,7 +1,10 @@
 package com.lgzarturo.blog.services.impl
 
+import com.lgzarturo.blog.exceptions.ConfirmationPasswordNotMatchException
 import com.lgzarturo.blog.exceptions.EmailAlreadyRegisteredException
 import com.lgzarturo.blog.exceptions.RegistrationUserException
+import com.lgzarturo.blog.exceptions.UserDoesNotExistException
+import com.lgzarturo.blog.models.dtos.UserChangePasswordRequest
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.Role
 import com.lgzarturo.blog.models.entities.User
@@ -29,6 +32,21 @@ class UserServiceJpa(
         val roles = HashSet<Role>()
         roles.add(roleRepository.findByAuthority("ADMIN").get())
         return register(userRegister, roles)
+    }
+
+    override fun changePassword(userChangePassword: UserChangePasswordRequest): User {
+        val user = userRepository.findByEmail(userChangePassword.email!!).orElseThrow { UserDoesNotExistException() }
+        if (userChangePassword.password != userChangePassword.confirmPassword) {
+            throw ConfirmationPasswordNotMatchException()
+        }
+        try {
+            user.password = userChangePassword.password
+            return userRepository.save(user)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            log.error("No se pudo registrar el usuario ${e.message}")
+            throw RegistrationUserException()
+        }
     }
 
     private fun register(userRegister: UserRegisterRequest, roles: HashSet<Role>): User {

@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.controllers
 
+import com.lgzarturo.blog.models.dtos.UserChangePasswordRequest
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Assertions.*
@@ -90,5 +91,54 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.password = password
         val result = restTemplate.postForObject<String>("/auth/register", request)
         Assertions.assertThat(result).contains("User registration failed")
+    }
+
+    @Test
+    fun testUpdatePassword() {
+        val password = "super-password"
+        val nuevoPassword = "new-password-xyz"
+        val email = "testupdatepassword@example.com"
+        val request = UserRegisterRequest()
+        request.email = email
+        request.password = password
+        val changePasswordRequest = UserChangePasswordRequest()
+        changePasswordRequest.email = email
+        changePasswordRequest.password = nuevoPassword
+        changePasswordRequest.confirmPassword = nuevoPassword
+        restTemplate.postForObject<String>("/auth/register", request)
+        val result = restTemplate.postForObject<String>("/auth/update/password", changePasswordRequest)
+        Assertions.assertThat(result).contains(email.lowercase())
+        Assertions.assertThat(result).contains(""""authority":"USER"""")
+        Assertions.assertThat(result).contains(""""isActive":true""")
+        Assertions.assertThat(result).doesNotContain(password)
+    }
+
+    @Test
+    fun testUpdatePassword_userNotExists() {
+        val password = "super-password"
+        val email = "testusernotexists@example.com"
+        val request = UserChangePasswordRequest()
+        request.email = email
+        request.password = password
+        request.confirmPassword = password
+        val result = restTemplate.postForObject<String>("/auth/update/password", request)
+        Assertions.assertThat(result).contains("User does not exist")
+    }
+
+    @Test
+    fun testUpdatePassword_confirmPasswordNotMatch() {
+        val password = "one-password-abc"
+        val nuevoPassword = "new-password-xyz"
+        val email = "testconfirmpass@example.com"
+        val request = UserRegisterRequest()
+        request.email = email
+        request.password = password
+        val changePasswordRequest = UserChangePasswordRequest()
+        changePasswordRequest.email = email
+        changePasswordRequest.password = nuevoPassword
+        changePasswordRequest.confirmPassword = "T$nuevoPassword"
+        restTemplate.postForObject<String>("/auth/register", request)
+        val result = restTemplate.postForObject<String>("/auth/update/password", changePasswordRequest)
+        Assertions.assertThat(result).contains("Password and confirmation must be match")
     }
 }
