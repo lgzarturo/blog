@@ -2,33 +2,37 @@ package com.lgzarturo.blog.models.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.lgzarturo.blog.models.enums.UserType
+import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
+import javax.validation.constraints.Size
 
 @Entity
 @Table(name = "users")
-class User(
+class User: BaseEntity() {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeqGen")
     @SequenceGenerator(name = "userSeqGen", sequenceName = "userSeq", initialValue = 1)
-    val id: Long? = null,
+    val id: Long? = null
     @Email
     @NotBlank
     @Column(unique = true)
-    val email: String? = null,
+    var email: String? = null
     @NotBlank
+    @Size(min = 4)
     @JsonIgnore
-    val password: String? = null,
+    var password: String? = null
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     @NotNull
-    val userType: UserType = UserType.USER,
-    val isActive: Boolean = true,
+    var userType: UserType = UserType.USER
+    var isActive: Boolean = true
     @OneToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
-    val author: Author? = null,
+    var author: Author? = null
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "users_roles",
@@ -36,7 +40,6 @@ class User(
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
     var authorities: Set<Role> = HashSet()
-) : BaseEntity() {
     override fun toString(): String {
         return "User(email=$email)"
     }

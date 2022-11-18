@@ -37,11 +37,10 @@ class DevelopmentInitializer(
         roleRepository.save(Role(authority = "USER"))
         val roles = HashSet<Role>()
         roles.add(roleRepository.findByAuthority("USER").get())
-        val user = User(
-            email = "admin@example.com",
-            password = "super-secret-password",
-            authorities = roles
-        )
+        val user = User()
+        user.email = "admin@example.com"
+        user.password = "super-secret-password"
+        user.authorities = roles
         userRepository.save(user)
         logger.info("Hay ${userRepository.count()} numero de usuarios en la base...")
     }

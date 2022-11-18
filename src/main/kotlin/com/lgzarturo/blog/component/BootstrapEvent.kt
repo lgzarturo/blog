@@ -71,13 +71,12 @@ class BootstrapEvent(
             category = categoryOne,
             publishedAt = LocalDate.now()
         )
-        val userOne = User(
-            email = "abc@gmail.com",
-            password = "12345",
-            userType = UserType.AUTHOR,
-            isActive = true,
-            author = authorOne
-        )
+        val userOne = User()
+        userOne.email = "abc@gmail.com"
+        userOne.password = "12345"
+        userOne.userType = UserType.AUTHOR
+        userOne.isActive = true
+        userOne.author = authorOne
         val commentOne = Comment(
             post = postOne,
             author = userOne.author?.name,
