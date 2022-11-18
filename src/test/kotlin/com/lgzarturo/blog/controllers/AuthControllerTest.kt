@@ -1,7 +1,6 @@
 package com.lgzarturo.blog.controllers
 
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
-import com.lgzarturo.blog.models.entities.User
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -34,5 +33,25 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         Assertions.assertThat(result).contains(""""authority":"USER"""")
         Assertions.assertThat(result).contains(""""isActive":true""")
         Assertions.assertThat(result).doesNotContain(password)
+    }
+
+    @Test
+    fun testRegister_withoutEmail() {
+        val password = "password-super-complex"
+        val request = UserRegisterRequest()
+        request.password = password
+        val result = restTemplate.postForObject<String>("/auth/register", request)
+        Assertions.assertThat(result).contains("Bad Request")
+        Assertions.assertThat(result).contains("NotBlank.userRegisterRequest.email")
+    }
+
+    @Test
+    fun testRegister_withoutPassword() {
+        val email = "test@example.com"
+        val request = UserRegisterRequest()
+        request.email = email
+        val result = restTemplate.postForObject<String>("/auth/register", request)
+        Assertions.assertThat(result).contains("Bad Request")
+        Assertions.assertThat(result).contains("NotBlank.userRegisterRequest.password")
     }
 }

@@ -15,6 +15,7 @@ class User(
     @SequenceGenerator(name = "userSeqGen", sequenceName = "userSeq", initialValue = 1)
     val id: Long? = null,
     @Email
+    @NotBlank
     @Column(unique = true)
     val email: String? = null,
     @NotBlank
