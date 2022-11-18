@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.controllers
 
+import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.User
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Assertions.*
@@ -25,7 +26,9 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     fun testRegister() {
         val email = "test@example.com"
         val password = "password-super-complex"
-        val request = User(email = email, password = password)
+        val request = UserRegisterRequest()
+        request.email = email
+        request.password = password
         val result = restTemplate.postForObject<String>("/auth/register", request)
         Assertions.assertThat(result).contains(email)
         Assertions.assertThat(result).contains(""""authority":"USER"""")

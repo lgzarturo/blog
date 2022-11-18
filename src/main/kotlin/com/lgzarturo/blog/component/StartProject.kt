@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.component
 
+import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.Role
 import com.lgzarturo.blog.models.entities.User
 import com.lgzarturo.blog.repositories.RoleRepository
@@ -27,10 +28,10 @@ class StartProject {
     fun run(userService: UserService) = CommandLineRunner {
         logger.info("Starting Blog project")
         logger.info("================================")
-        userService.register(User(
-            email = "user@example.com",
-            password = "one-password"
-        ))
+        val userRequest = UserRegisterRequest()
+        userRequest.email = "user@example.com"
+        userRequest.password = "one-password"
+        userService.registerUser(userRequest)
         logger.info("Hay ${userService.countUsers()} numero de usuarios en la base...")
     }
 }
