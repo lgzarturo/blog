@@ -29,7 +29,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.email = email
         request.password = password
         val result = restTemplate.postForObject<String>("/auth/register", request)
-        Assertions.assertThat(result).contains(email)
+        Assertions.assertThat(result).contains(email.lowercase())
         Assertions.assertThat(result).contains(""""authority":"USER"""")
         Assertions.assertThat(result).contains(""""isActive":true""")
         Assertions.assertThat(result).doesNotContain(password)
@@ -64,7 +64,6 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.password = password
         restTemplate.postForObject<String>("/auth/register", request)
         val result = restTemplate.postForObject<String>("/auth/register", request)
-        Assertions.assertThat(result).contains("Internal Server Error")
         Assertions.assertThat(result).contains("The email already registered")
     }
 
@@ -77,6 +76,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.password = password
         restTemplate.postForObject<String>("/auth/register", request)
         val result = restTemplate.postForObject<String>("/auth/register", request)
+        println(result)
         Assertions.assertThat(result).contains("Bad Request")
         Assertions.assertThat(result).contains("must be a well-formed email address")
     }
@@ -89,7 +89,6 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.email = email
         request.password = password
         val result = restTemplate.postForObject<String>("/auth/register", request)
-        Assertions.assertThat(result).contains("Internal Server Error")
         Assertions.assertThat(result).contains("User registration failed")
     }
 }
