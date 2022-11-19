@@ -29,4 +29,9 @@ class HandleExceptionController {
         ex: ConfirmationPasswordNotMatchException
     ) : ResponseEntity<ErrorException> = ResponseEntity.badRequest().body(ErrorException(ex))
 
+    @ExceptionHandler(EmailFailedToSendException::class)
+    fun handleEmailFailedToSendException(
+        ex: EmailFailedToSendException
+    ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.INTERNAL_SERVER_ERROR)
+
 }

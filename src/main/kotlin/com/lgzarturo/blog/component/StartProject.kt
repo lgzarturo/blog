@@ -1,5 +1,6 @@
 package com.lgzarturo.blog.component
 
+import com.google.api.services.gmail.Gmail
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.Role
 import com.lgzarturo.blog.models.entities.User
@@ -25,13 +26,14 @@ class StartProject {
      * Insertando usuario por medio del servicio `UserService`
      */
     @Bean
-    fun run(userService: UserService) = CommandLineRunner {
+    fun run(userService: UserService, gmail: Gmail) = CommandLineRunner {
         logger.info("Starting Blog project")
         logger.info("================================")
         val userRequest = UserRegisterRequest()
-        userRequest.email = "user@example.com"
+        userRequest.email = "lgzarturo@gmail.com"
         userRequest.password = "one-password"
         userService.registerUser(userRequest)
         logger.info("Hay ${userService.countUsers()} numero de usuarios en la base...")
+        logger.info("GMAIL ${gmail.applicationName}")
     }
 }

@@ -10,6 +10,7 @@ import com.lgzarturo.blog.models.entities.Role
 import com.lgzarturo.blog.models.entities.User
 import com.lgzarturo.blog.repositories.RoleRepository
 import com.lgzarturo.blog.repositories.UserRepository
+import com.lgzarturo.blog.services.MailService
 import com.lgzarturo.blog.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -18,7 +19,8 @@ import kotlin.math.floor
 @Service
 class UserServiceJpa(
     private val userRepository: UserRepository,
-    private val roleRepository: RoleRepository
+    private val roleRepository: RoleRepository,
+    private val mailService: MailService
     ) : UserService {
 
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -75,6 +77,19 @@ class UserServiceJpa(
         val user = userRepository.findByEmail(email).orElseThrow { UserDoesNotExistException() }
         val verificationCode = generateVerificationCode()
         user.verification = verificationCode
+        mailService.sendEmail(
+            email,
+            "Blog - Registro de usuario",
+            """
+                Datos del usuario
+                - Correo electrónico: $email
+                - Código para verificar la cuenta: $verificationCode
+                
+                Nota: 
+                Cuando el sistema se lo pida, favor de proporcionar este código para activar la cuenta.                
+            """.trimIndent()
+        )
+        userRepository.save(user)
         return verificationCode
     }
 

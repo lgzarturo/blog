@@ -1,0 +1,8 @@
+###
+POST /blog/api/v1/auth/email/code
+Host: localhost:9090
+Content-Type: application/json
+
+{
+    "email": "lgzarturo@gmail.com"
+}

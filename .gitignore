@@ -14,3 +14,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 data/*.db
 *.gz
+**/resources/*.json
+tokens/StoredCredential
