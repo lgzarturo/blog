@@ -4,10 +4,12 @@ import com.lgzarturo.blog.models.dtos.UserChangePasswordRequest
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.User
 import com.lgzarturo.blog.services.UserService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.lang.RuntimeException
 import javax.validation.Valid
 
 @RestController
@@ -21,4 +23,11 @@ class AuthController(private val userService: UserService) {
 
     @PostMapping("/update/password")
     fun updatePassword(@Valid @RequestBody userChangePassword: UserChangePasswordRequest): User = userService.changePassword(userChangePassword)
+
+    @PostMapping("/email/code")
+    fun createEmailVerificationCode(@RequestBody body: LinkedHashMap<String, String>): ResponseEntity<String> {
+        val email = body["email"] ?: throw RuntimeException("Param email is required")
+        userService.generateEmailVerificationCode(email)
+        return ResponseEntity.ok("Verification code generated, email sent")
+    }
 }

@@ -9,4 +9,5 @@ interface UserService {
     fun registerAdmin(userRegister: UserRegisterRequest): User
     fun changePassword(userChangePassword: UserChangePasswordRequest): User
     fun countUsers(): Long
+    fun generateEmailVerificationCode(email: String): Long
 }

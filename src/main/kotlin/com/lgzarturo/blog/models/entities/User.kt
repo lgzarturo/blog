@@ -40,6 +40,10 @@ class User: BaseEntity() {
         inverseJoinColumns = [JoinColumn(name = "role_id")]
     )
     var authorities: Set<Role> = HashSet()
+    var enabled: Boolean = false
+    @JsonIgnore
+    @Column(nullable = true)
+    var verification: Long? = null
     override fun toString(): String {
         return "User(email=$email)"
     }

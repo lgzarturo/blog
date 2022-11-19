@@ -141,4 +141,34 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         val result = restTemplate.postForObject<String>("/auth/update/password", changePasswordRequest)
         Assertions.assertThat(result).contains("Password and confirmation must be match")
     }
+
+    @Test
+    fun testGenerateVerificationCode() {
+        val password = "super-password"
+        val email = "testupdatepassword@example.com"
+        val request = UserRegisterRequest()
+        request.email = email
+        request.password = password
+        restTemplate.postForObject<String>("/auth/register", request)
+        val params = HashMap<String, String>()
+        params["email"] = email
+        val result = restTemplate.postForObject<String>("/auth/email/code", params)
+        Assertions.assertThat(result).contains("Verification code generated, email sent")
+    }
+
+    @Test
+    fun testGenerateVerificationCode_usernameNotExists() {
+        val params = HashMap<String, String>()
+        params["email"] = "one-email-not-exist@gmail.com"
+        val result = restTemplate.postForObject<String>("/auth/email/code", params)
+        Assertions.assertThat(result).contains("User does not exist")
+    }
+
+    @Test
+    fun testGenerateVerificationCode_usernameNotProvided() {
+        val params = HashMap<String, String>()
+        val result = restTemplate.postForObject<String>("/auth/email/code", params)
+        Assertions.assertThat(result).contains("Param email is required")
+    }
+
 }

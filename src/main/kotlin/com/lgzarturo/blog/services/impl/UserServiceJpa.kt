@@ -13,6 +13,7 @@ import com.lgzarturo.blog.repositories.UserRepository
 import com.lgzarturo.blog.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import kotlin.math.floor
 
 @Service
 class UserServiceJpa(
@@ -68,5 +69,16 @@ class UserServiceJpa(
 
     override fun countUsers(): Long {
         return userRepository.count()
+    }
+
+    override fun generateEmailVerificationCode(email: String): Long {
+        val user = userRepository.findByEmail(email).orElseThrow { UserDoesNotExistException() }
+        val verificationCode = generateVerificationCode()
+        user.verification = verificationCode
+        return verificationCode
+    }
+
+    private fun generateVerificationCode(): Long {
+        return floor(Math.random() * 1_000_000_000).toLong()
     }
 }
