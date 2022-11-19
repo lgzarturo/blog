@@ -22,12 +22,11 @@ class HandleExceptionController {
     @ExceptionHandler(UserDoesNotExistException::class)
     fun handleUserDoesNotExist(
         ex: UserDoesNotExistException
-    ) : ResponseEntity<ErrorException> = ResponseEntity.badRequest().body(ErrorException(ex))
+    ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.NOT_FOUND)
 
     @ExceptionHandler(ConfirmationPasswordNotMatchException::class)
     fun handleConfirmationPasswordNotMatch(
         ex: ConfirmationPasswordNotMatchException
     ) : ResponseEntity<ErrorException> = ResponseEntity.badRequest().body(ErrorException(ex))
-
 
 }

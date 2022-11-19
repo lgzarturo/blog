@@ -36,7 +36,7 @@ class HomeController {
     @GetMapping
     fun index(@RequestParam name: String?): Response {
         log.debug("Procesando la solicitud GET de la función index() name={}", name)
-        var message = "Hola mundo ${name?:"!"}"
+        val message = "Hola mundo ${name?:"!"}"
         return Response(
             status = HttpStatus.OK.value(),
             message = message
