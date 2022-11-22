@@ -42,7 +42,7 @@ class UserServiceJpa(
             throw ConfirmationPasswordNotMatchException()
         }
         try {
-            user.password = userChangePassword.password
+            user.password = passwordEncoder.encode(userChangePassword.password)
             return userRepository.save(user)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -54,7 +54,7 @@ class UserServiceJpa(
     private fun register(userRegister: UserRegisterRequest, roles: HashSet<Role>): User {
         val user = User()
         user.email = userRegister.email!!.trim().lowercase()
-        user.password = userRegister.password!!.trim()
+        user.password = passwordEncoder.encode(userRegister.password!!.trim())
         user.authorities = roles
         if (userRepository.countByEmail(user.email!!) > 0) {
             throw EmailAlreadyRegisteredException()

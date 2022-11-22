@@ -91,7 +91,8 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         request.email = email
         request.password = password
         val result = restTemplate.postForObject<String>("/auth/register", request)
-        Assertions.assertThat(result).contains("User registration failed")
+        Assertions.assertThat(result).contains("Size.password")
+        Assertions.assertThat(result).contains(""""field":"password","rejectedValue":"pc","bindingFailure":false,"code":"Size"""")
     }
 
     @Test
