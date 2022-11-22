@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.postForObject
+import org.springframework.boot.test.web.client.patchForObject
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
@@ -188,4 +189,44 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         Assertions.assertThat(result).contains("Param code is required")
     }
 
+    @Test
+    fun testValidationVerificationCode_errorCodeInvalid() {
+        val params = HashMap<String, String>()
+        val code = "11291292"
+        params["email"] = "lgzarturo@gmail.com"
+        params["code"] = code
+        val result = restTemplate.postForObject<String>("/auth/email/code/verification", params)
+        Assertions.assertThat(result).contains("The code '$code' did not match with the user verification code")
+    }
+
+    @Test
+    fun testChangePassword() {
+        val email = "changePassword@example.com"
+        val password = "password-super-complex"
+        val request = UserRegisterRequest()
+        request.email = email
+        request.password = password
+        restTemplate.postForObject<String>("/auth/register", request)
+        val params = HashMap<String, String>()
+        params["password"] = "11291292"
+        params["email"] = email
+        val result = restTemplate.patchForObject<String>("/auth/update/password", params)
+        Assertions.assertThat(result).contains("Password updated successfully")
+    }
+
+    @Test
+    fun testChangePassword_usernameNotProvided() {
+        val params = HashMap<String, String>()
+        params["password"] = "11291292"
+        val result = restTemplate.patchForObject<String>("/auth/update/password", params)
+        Assertions.assertThat(result).contains("Param email is required")
+    }
+
+    @Test
+    fun testChangePassword_passwordNotProvided() {
+        val params = HashMap<String, String>()
+        params["email"] = "one@gmail.com"
+        val result = restTemplate.patchForObject<String>("/auth/update/password", params)
+        Assertions.assertThat(result).contains("Password code is required")
+    }
 }

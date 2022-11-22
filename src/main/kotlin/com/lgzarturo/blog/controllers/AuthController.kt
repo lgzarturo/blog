@@ -5,7 +5,9 @@ import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.User
 import com.lgzarturo.blog.services.UserService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -36,5 +38,13 @@ class AuthController(private val userService: UserService) {
         val code = body["code"] ?: throw RuntimeException("Param code is required")
         val email = body["email"] ?: throw RuntimeException("Param email is required")
         return userService.verificationCode(code ,email)
+    }
+
+    @PatchMapping("/update/password")
+    fun updatePassword(@RequestBody body: LinkedHashMap<String, String>): ResponseEntity<String> {
+        val email = body["email"] ?: throw RuntimeException("Param email is required")
+        val password = body["password"] ?: throw RuntimeException("Param password is required")
+        userService.updatePassword(email, password)
+        return ResponseEntity.ok("Password updated successfully")
     }
 }

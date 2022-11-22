@@ -10,6 +10,7 @@ import com.lgzarturo.blog.repositories.UserRepository
 import com.lgzarturo.blog.services.MailService
 import com.lgzarturo.blog.services.UserService
 import org.slf4j.LoggerFactory
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import kotlin.math.floor
 
@@ -17,7 +18,8 @@ import kotlin.math.floor
 class UserServiceJpa(
     private val userRepository: UserRepository,
     private val roleRepository: RoleRepository,
-    private val mailService: MailService
+    private val mailService: MailService,
+    private val passwordEncoder: PasswordEncoder
     ) : UserService {
 
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -104,6 +106,18 @@ class UserServiceJpa(
             log.error("Error al intentar parsear el código '$code'. Error: ${e.message}")
         }
         throw VerificationUserException()
+    }
+
+    override fun updatePassword(email: String, password: String) {
+        val user = userRepository.findByEmail(email).orElseThrow { UserDoesNotExistException() }
+        user.password = passwordEncoder.encode(password)
+        try {
+            userRepository.save(user)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            log.error("No se pudo cambiar la contraseña ${e.message}")
+            throw PasswordEncoderException()
+        }
     }
 
     private fun generateVerificationCode(): Long {

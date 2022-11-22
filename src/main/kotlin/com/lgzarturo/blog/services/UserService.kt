@@ -11,4 +11,5 @@ interface UserService {
     fun countUsers(): Long
     fun generateEmailVerificationCode(email: String): Long
     fun verificationCode(code: String, email: String): User
+    fun updatePassword(email: String, password: String)
 }
