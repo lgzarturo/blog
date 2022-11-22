@@ -196,12 +196,12 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         params["email"] = "lgzarturo@gmail.com"
         params["code"] = code
         val result = restTemplate.postForObject<String>("/auth/email/code/verification", params)
-        Assertions.assertThat(result).contains("The code '$code' did not match with the user verification code")
+        Assertions.assertThat(result).contains("User verification failed")
     }
 
     @Test
     fun testChangePassword() {
-        val email = "changePassword@example.com"
+        val email = "changepassword@example.com"
         val password = "password-super-complex"
         val request = UserRegisterRequest()
         request.email = email
