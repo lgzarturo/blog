@@ -39,4 +39,9 @@ class HandleExceptionController {
         ex: VerificationUserException
     ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.BAD_REQUEST)
 
+    @ExceptionHandler(PasswordEncoderException::class)
+    fun handlePasswordEncoderException(
+        ex: PasswordEncoderException
+    ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.BAD_REQUEST)
+
 }

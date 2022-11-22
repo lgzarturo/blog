@@ -227,6 +227,6 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         val params = HashMap<String, String>()
         params["email"] = "one@gmail.com"
         val result = restTemplate.patchForObject<String>("/auth/update/password", params)
-        Assertions.assertThat(result).contains("Password code is required")
+        Assertions.assertThat(result).contains("Param password is required")
     }
 }
