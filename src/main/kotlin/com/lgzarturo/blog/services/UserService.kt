@@ -10,4 +10,5 @@ interface UserService {
     fun changePassword(userChangePassword: UserChangePasswordRequest): User
     fun countUsers(): Long
     fun generateEmailVerificationCode(email: String): Long
+    fun verificationCode(code: String, email: String): User
 }

@@ -34,4 +34,9 @@ class HandleExceptionController {
         ex: EmailFailedToSendException
     ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.INTERNAL_SERVER_ERROR)
 
+    @ExceptionHandler(VerificationUserException::class)
+    fun handleVerificationUserException(
+        ex: VerificationUserException
+    ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.BAD_REQUEST)
+
 }

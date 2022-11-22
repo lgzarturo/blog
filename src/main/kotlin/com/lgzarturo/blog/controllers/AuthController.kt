@@ -30,4 +30,11 @@ class AuthController(private val userService: UserService) {
         userService.generateEmailVerificationCode(email)
         return ResponseEntity.ok("Verification code generated, email sent")
     }
+
+    @PostMapping("/email/code/verification")
+    fun verificationCode(@RequestBody body: LinkedHashMap<String, String>): User {
+        val code = body["code"] ?: throw RuntimeException("Param code is required")
+        val email = body["email"] ?: throw RuntimeException("Param email is required")
+        return userService.verificationCode(code ,email)
+    }
 }

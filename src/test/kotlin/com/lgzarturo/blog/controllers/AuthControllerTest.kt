@@ -145,7 +145,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     @Test
     fun testGenerateVerificationCode() {
         val password = "super-password"
-        val email = "testupdatepassword@example.com"
+        val email = "lgzarturo@gmail.com"
         val request = UserRegisterRequest()
         request.email = email
         request.password = password
@@ -169,6 +169,23 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
         val params = HashMap<String, String>()
         val result = restTemplate.postForObject<String>("/auth/email/code", params)
         Assertions.assertThat(result).contains("Param email is required")
+    }
+
+
+    @Test
+    fun testValidationVerificationCode_usernameNotProvided() {
+        val params = HashMap<String, String>()
+        params["code"] = "11291292"
+        val result = restTemplate.postForObject<String>("/auth/email/code/verification", params)
+        Assertions.assertThat(result).contains("Param email is required")
+    }
+
+    @Test
+    fun testValidationVerificationCode_codeNotProvided() {
+        val params = HashMap<String, String>()
+        params["email"] = "one@gmail.com"
+        val result = restTemplate.postForObject<String>("/auth/email/code/verification", params)
+        Assertions.assertThat(result).contains("Param code is required")
     }
 
 }

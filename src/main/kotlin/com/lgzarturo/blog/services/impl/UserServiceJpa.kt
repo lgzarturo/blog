@@ -1,9 +1,6 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.exceptions.ConfirmationPasswordNotMatchException
-import com.lgzarturo.blog.exceptions.EmailAlreadyRegisteredException
-import com.lgzarturo.blog.exceptions.RegistrationUserException
-import com.lgzarturo.blog.exceptions.UserDoesNotExistException
+import com.lgzarturo.blog.exceptions.*
 import com.lgzarturo.blog.models.dtos.UserChangePasswordRequest
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import com.lgzarturo.blog.models.entities.Role
@@ -91,6 +88,22 @@ class UserServiceJpa(
         )
         userRepository.save(user)
         return verificationCode
+    }
+
+    override fun verificationCode(code: String, email: String): User {
+        val user = userRepository.findByEmail(email).orElseThrow { UserDoesNotExistException() }
+        try {
+            if (user.verification?.equals(code.toLong()) == true) {
+                user.enabled = true
+                user.verification = null
+                return userRepository.save(user)
+            } else {
+                throw VerificationUserException("The code '$code' did not match with the user verification code")
+            }
+        } catch (e: Exception) {
+            log.error("Error al intentar parsear el código '$code'. Error: ${e.message}")
+        }
+        throw VerificationUserException()
     }
 
     private fun generateVerificationCode(): Long {
