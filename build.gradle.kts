@@ -39,6 +39,8 @@ dependencies {
     implementation("com.google.apis:google-api-services-gmail:v1-rev20220404-2.0.0")
     implementation("com.google.oauth-client:google-oauth-client-jetty:1.34.1")
     implementation("com.sun.mail:javax.mail:1.6.2")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.5")
+    testImplementation("io.projectreactor:reactor-test:3.4.24")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
