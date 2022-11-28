@@ -55,4 +55,12 @@ class FactoryTest {
             .expectNext(name)
             .verifyComplete()
     }
+
+    @Test
+    fun fluxUsingRange() {
+        val fluxNumbers = Flux.range(1, 10)
+        StepVerifier.create(fluxNumbers)
+            .expectNext(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+            .verifyComplete()
+    }
 }
