@@ -164,6 +164,14 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 ![Blog DB Schema](docs/assets/database_schema_diagram_er.jpg)
 ![Representación de las entidades en H2](docs/assets/jpa-H2-console-database.jpg)
 
+## Reactor WebFlux
+
+Se integran las librerías de WebFlux y reactor para realizar pruebas con la aplicación el objetivo es dominar el asincronismo en Java.
+
+![Reactor WebFlux](docs/assets/springboot-mvc-and-webflux.png)
+
+> WebFlux se menciona como una solución para el escalamiento donde las aplicaciones basadas en Spring Boot no requieren el uso de un hilo de ejecución por cada sesión de usuario.
+
 ## Documentación
 
 - [Ideas para construir una REST API](docs/api-rest.md)

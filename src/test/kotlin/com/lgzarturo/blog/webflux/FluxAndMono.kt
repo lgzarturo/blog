@@ -2,6 +2,7 @@ package com.lgzarturo.blog.webflux
 
 import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
 class FluxAndMono {
@@ -59,6 +60,23 @@ class FluxAndMono {
         StepVerifier.create(items)
             .expectNextCount(3)
             .expectErrorMessage(errorMessage)
+            .verify()
+    }
+
+    @Test
+    fun monoTest() {
+        val item: Mono<String> = Mono.just("Spring").log()
+        StepVerifier.create(item)
+            .expectNext("Spring")
+            .verifyComplete()
+    }
+
+    @Test
+    fun monoTest_error() {
+        val messageError = "Error occurred"
+        val item = Mono.error<RuntimeException>(RuntimeException(messageError)).log()
+        StepVerifier.create(item)
+            .expectErrorMessage(messageError)
             .verify()
     }
 }
