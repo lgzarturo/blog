@@ -80,7 +80,7 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 - name - String(90)
 - avatarImage - String(255)
 - description - String(1000)
-- posts -> author_id(relationship)
+- posts -> `author_id`(relationship)
 - createdAt - LocalTimeDate
 - updatedAt - LocalTimeDate
 
@@ -92,7 +92,7 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 - title - String(180)
 - slug - String(180)
 - description - String(1_000)
-- posts -> category_id(relationship)
+- posts -> `category_id`(relationship)
 - createdAt - LocalDateTime
 - updatedAt - LocalDateTime
 
@@ -101,8 +101,8 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 > Entidad Comment.kt
 
 - id - Long(PK)
-- parent_id - Long
-- post_id - Long
+- parentComment `parent_id`(relationship) - Long
+- post -> `post_id`(relationship) - Long
 - author - String(90)
 - authorEmail - String(255)
 - ipAddress - String(100)
@@ -128,7 +128,7 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 > Entity Post.kt
 
 - id - Long(PK)
-- parent_id - Long
+- parentPost -> `parent_id`(relationship) - Long
 - title - String(180)
 - slug - String(180)
 - coverImage - String(255)
@@ -138,11 +138,13 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 - postType - String(20[PAGE|ARTICLE|PHOTO|VIDEO|GALLERY])
 - postLikes - Long
 - postComments - Long
+- comments -> `comment_id`(relationship) - Long
 - hasPage - Boolean
 - menuOrder - Integer
-- -> author_id(relationship)
-- -> category_id(relationship)
+- author -> `author_id`(relationship)
+- category -> `category_id`(relationship)
 - publishedAt - LocalDate
+- tags -> `tag_id`(relationship)
 - createdAt - LocalDateTime
 - updatedAt - LocalDateTime
 
@@ -154,8 +156,31 @@ En el paquete `test.kotlin.com.lgzarturo.blog` se podrán encontrar archivos con
 - email - String(255)
 - password - String(255)
 - userType - String(20[ADMIN|AUTHOR|USER])
+- enabled - Boolean
 - isActive - Boolean
-- author - author_id(relationship)
+- verification - Long
+- author - `author_id`(relationship) - Long
+- authorities - `role_id`(relationship) - Long
+- createdAt - LocalTimeDate
+- updatedAt - LocalTimeDate
+
+#### Tabla `tags`
+
+> Entity Tag.kt
+
+- id - Long(PK)
+- name - String(255)
+- slug - String(255)
+- posts - `post_id`(relationship) - Long
+- createdAt - LocalTimeDate
+- updatedAt - LocalTimeDate
+
+#### Tabla `roles`
+
+> Entity Tag.kt
+
+- id - Long(PK)
+- authority - String(255)
 - createdAt - LocalTimeDate
 - updatedAt - LocalTimeDate
 
