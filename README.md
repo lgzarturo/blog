@@ -12,7 +12,7 @@ Plantilla para crear el proyecto desde la página de start.spring.io
 
 ### Estructura del proyecto
 
-- **configurations**: Se definen los estereotipos @Configuration para personalizar los recursos de la aplicación.
+- **configurations**: Se definen los estereotipos `@Configuration` para personalizar los recursos de la aplicación.
 - **controllers**: Capa con los controladores de la aplicación de tipo RestFul.
 - **entities**: Capa para la representación de las tablas en JPA.
 - **exceptions**: Se especifican las excepciones para el control de respuesta del API Rest.
