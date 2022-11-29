@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
 import reactor.test.StepVerifier
 
-class FluxFilters {
+class FluxFiltersTest {
     private val names: List<String> = listOf("Bellami", "Bartolomeo", "Vivi", "Pika", "Brook", "Crocodile")
 
     @Test

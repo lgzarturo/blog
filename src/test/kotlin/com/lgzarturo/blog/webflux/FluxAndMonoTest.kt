@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
 
-class FluxAndMono {
+class FluxAndMonoTest {
     @Test
     fun fluxTest() {
         val items: Flux<String> = Flux.just("Spring", "Web Flux", "Reactive").log()
