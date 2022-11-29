@@ -2,7 +2,9 @@ package com.lgzarturo.blog.webflux
 
 import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
+import reactor.core.scheduler.Schedulers.parallel
 import reactor.test.StepVerifier
+import kotlin.jvm.Throws
 
 class TransformTest {
     private val names: List<String> = listOf("Alabasta", "Impeldown", "Triller Bark", "Dressrosa")
@@ -44,6 +46,54 @@ class TransformTest {
             .map { s -> s.length }.log()
         StepVerifier.create(sagas)
             .expectNext("Alabasta".length, "Impeldown".length, "Dressrosa".length)
+            .verifyComplete()
+    }
+
+    @Test
+    fun transformationUsingFlatMap() {
+        val letters = Flux.fromIterable(listOf("A", "E", "I", "O", "U", "~"))
+            .flatMap { s -> Flux.fromIterable(convertToList(s)) }.log()
+        StepVerifier.create(letters)
+            .expectNextCount(12)
+            .verifyComplete()
+    }
+
+    @Throws(InterruptedException::class)
+    private fun convertToList(s: String): List<String> {
+        Thread.sleep(1000)
+        return listOf(s, "new value")
+    }
+
+    @Test
+    fun transformationUsingFlatMap_usingParallel() {
+        val letters = Flux.fromIterable(listOf("A", "E", "I", "O", "U", "~"))
+            .window(2)
+            .flatMap { s -> s.map(this::convertToList).subscribeOn(parallel()) }
+            .flatMap { s -> Flux.fromIterable(s) }.log()
+        StepVerifier.create(letters)
+            .expectNextCount(12)
+            .verifyComplete()
+    }
+
+    @Test
+    fun transformationUsingFlatMap_usingParallelMaintainOrder() {
+        val letters = Flux.fromIterable(listOf("A", "E", "I", "O", "U", "~"))
+            .window(2)
+            .flatMapSequential { s -> s.map(this::convertToList).subscribeOn(parallel()) }
+            .flatMap { s -> Flux.fromIterable(s) }.log()
+        StepVerifier.create(letters)
+            .expectNextCount(12)
+            .verifyComplete()
+    }
+
+    @Test
+    fun transformationUsingFlatMap_usingParallelMaintainOrderSlow() {
+        val letters = Flux.fromIterable(listOf("A", "E", "I", "O", "U", "~"))
+            .window(2)
+            .concatMap { s -> s.map(this::convertToList).subscribeOn(parallel()) }
+            .flatMap { s -> Flux.fromIterable(s) }.log()
+        StepVerifier.create(letters)
+            .expectNextCount(12)
             .verifyComplete()
     }
 }
