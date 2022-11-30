@@ -45,8 +45,8 @@ class BootstrapEvent(
         authorTwo.name = "John Doe"
         authorTwo.avatarImage = "https://picsum.photos/seed/picsum/200/300"
         authorTwo.description = "Escritor de novelas"
-        val categoryOne = Category(title = "Programación", slug = "programming", description = "Artículos sobre programación")
-        val categoryTwo = Category(title = "Diseño", slug = "design", description = "Artículos sobre diseño")
+        val categoryOne = Category(title = "Programming", slug = "programming", description = "Post about programming")
+        val categoryTwo = Category(title = "Design", slug = "design", description = "Post about design")
         val tagOne = Tag(
             name = "Programación",
             slug = "programming"
