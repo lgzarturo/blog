@@ -210,3 +210,6 @@ Se integran las librerías de WebFlux y reactor para realizar pruebas con la apl
 - [1]: [Listado de configuraciones de spring boot: `application.properties`](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
 - [2]: [Palabras reservadas que soporta JPA para definir las consultas como métodos](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation)
 - [3]: [Apéndice de palabras que soportan los repositorios](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-keywords)
+- [4]: [Documentación sobre Project Reactor](https://projectreactor.io/docs/core/release/reference/index.html)
+- [5]: [Tutorial para iniciar un proyecto con WebFlux](https://spring.io/guides/gs/reactive-rest-service/)
+- [6]: [WebFlux Documentación Oficial](https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html)
