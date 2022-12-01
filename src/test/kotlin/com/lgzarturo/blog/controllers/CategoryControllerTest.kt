@@ -1,6 +1,5 @@
 package com.lgzarturo.blog.controllers
 
-import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.lgzarturo.blog.body
 import com.lgzarturo.blog.bodyTo
@@ -16,13 +15,12 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest
@@ -69,12 +67,13 @@ internal class CategoryControllerTest {
     }
 
     @Test
-    fun testCreateCategory() {
+    fun testCreateCategory(): Category {
         val category = Category(title = "Web Development", slug = "web-dev", description = "web development programming")
         val result = mockMvc.perform(post(endpointUri).body(data = category, mapper = mapper))
             .andExpect(status().isOk)
             .bodyTo<Category>(mapper)
         assertNotNull(result)
+        return result
     }
 
     @Test
@@ -84,6 +83,54 @@ internal class CategoryControllerTest {
         val category = categoriesFromService.first()
         val categoryRequest = modelMapper.map(category, CategoryRequest::class.java)
         mockMvc.perform(post(endpointUri).body(data = categoryRequest, mapper = mapper))
+            .andExpect(status().isBadRequest)
+    }
+
+    @Test
+    fun testUpdateCategory() {
+        val categoriesFromService = categoryService.getAll()
+        assert(categoriesFromService.isNotEmpty())
+        val category = categoriesFromService.first()
+        val categoryRequest = modelMapper.map(category, CategoryRequest::class.java).apply { title = "Nueva categoría" }
+        val result = mockMvc.perform(put("$endpointUri/${category.id}").body(data = categoryRequest, mapper = mapper))
+            .andExpect(status().isOk)
+            .bodyTo<Category>(mapper)
+        assertNotNull(result)
+    }
+
+    @Test
+    fun testUpdateCategory_fail() {
+        val categoriesFromService = categoryService.getAll()
+        assert(categoriesFromService.isNotEmpty())
+        val category = categoriesFromService.first()
+        val categoryRequest = modelMapper.map(category, CategoryRequest::class.java).apply { title = "Nueva categoría" }
+        mockMvc.perform(put("$endpointUri/121213").body(data = categoryRequest, mapper = mapper))
+            .andExpect(status().isNotFound)
+    }
+
+    @Test
+    fun testDeleteCategory() {
+        val category = testCreateCategory()
+        val result = mockMvc.perform(delete("$endpointUri/${category.id}"))
+            .andExpect(status().isNoContent)
+        assertNotNull(result)
+        assert(!categoryService.getAll().contains(category))
+    }
+
+    @Test
+    fun testDeleteCategory_failRelationship() {
+        val categoriesFromService = categoryService.getAll()
+        assert(categoriesFromService.isNotEmpty())
+        val category = categoriesFromService.first()
+        mockMvc.perform(delete("$endpointUri/${category.id}"))
+            .andExpect(status().isUnprocessableEntity)
+        val items = categoryService.getAll()
+        assert(categoryService.getAll().map { it.id }.contains(category.id))
+    }
+
+    @Test
+    fun testDeleteCategory_badRequest() {
+        mockMvc.perform(delete("$endpointUri/${UUID.randomUUID()}"))
             .andExpect(status().isBadRequest)
     }
 }

@@ -38,7 +38,8 @@ class CategoryController(private val categoryService: CategoryService) {
 
     @PutMapping("{id}")
     fun update(@PathVariable id: Long, @Valid @RequestBody request: CategoryRequest): ResponseEntity<Category> {
-        return ResponseEntity.ok(categoryService.update(id, request))
+        val response = categoryService.update(id, request) ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(response)
     }
 
     @DeleteMapping("{id}")
