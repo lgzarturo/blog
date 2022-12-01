@@ -37,4 +37,17 @@ class CommentControllerTest {
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(content().string("[1,2,3,4,5,6,7,8,9,10,11,12]"))
     }
+
+    @Test
+    fun testGetAllCommentsTest_stream() {
+        val mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/comments/stream"))
+            .andExpect(MockMvcResultMatchers.request().asyncStarted())
+            .andDo(MockMvcResultHandlers.log())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
+
+        mockMvc.perform(asyncDispatch(mvcResult))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_NDJSON_VALUE))
+    }
 }
