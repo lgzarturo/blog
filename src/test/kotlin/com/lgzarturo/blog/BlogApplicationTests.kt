@@ -1,17 +1,16 @@
 package com.lgzarturo.blog
 
 import com.lgzarturo.blog.controllers.Request
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
-import org.springframework.test.context.junit.jupiter.SpringExtension
-
-import org.assertj.core.api.Assertions.assertThat
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForObject
 import org.springframework.boot.test.web.client.postForObject
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment= WebEnvironment.RANDOM_PORT)

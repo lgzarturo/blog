@@ -7,7 +7,9 @@ import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.LocalDateTime
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.MappedSuperclass
+import javax.persistence.Version
 
 @MappedSuperclass
 open class BaseEntity (

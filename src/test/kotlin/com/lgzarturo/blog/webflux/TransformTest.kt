@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test
 import reactor.core.publisher.Flux
 import reactor.core.scheduler.Schedulers.parallel
 import reactor.test.StepVerifier
-import kotlin.jvm.Throws
 
 class TransformTest {
     private val names: List<String> = listOf("Alabasta", "Impeldown", "Triller Bark", "Dressrosa")

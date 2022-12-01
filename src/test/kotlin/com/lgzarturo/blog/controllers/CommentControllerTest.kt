@@ -25,7 +25,7 @@ class CommentControllerTest {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    fun getAllCommentsTest() {
+    fun testGetAllCommentsTest() {
         val mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/comments"))
             .andExpect(MockMvcResultMatchers.request().asyncStarted())
             .andDo(MockMvcResultHandlers.log())

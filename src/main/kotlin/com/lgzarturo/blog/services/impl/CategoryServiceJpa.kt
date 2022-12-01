@@ -1,11 +1,12 @@
 package com.lgzarturo.blog.services.impl
 
+import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.repositories.CategoryRepository
 import com.lgzarturo.blog.services.CategoryService
 import org.modelmapper.ModelMapper
+import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
 import java.util.*
@@ -15,6 +16,8 @@ class CategoryServiceJpa(
     private val categoryRepository: CategoryRepository,
     private val modelMapper: ModelMapper
 ) : CategoryService {
+
+    private val log = LoggerFactory.getLogger(this::class.java)
 
     override fun getAll(): List<Category> {
         return categoryRepository.findAll()
@@ -31,7 +34,12 @@ class CategoryServiceJpa(
 
     override fun save(categoryRequest: CategoryRequest): Category? {
         val category = modelMapper.map(categoryRequest, Category::class.java)
-        return categoryRepository.save(category)
+        return try {
+            categoryRepository.save(category)
+        } catch (e: Exception) {
+            log.error("Error saving category ${e.message}")
+            null
+        }
     }
 
     override fun update(id: Long, categoryRequest: CategoryRequest): Category? {

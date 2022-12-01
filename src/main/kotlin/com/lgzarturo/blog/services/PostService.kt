@@ -1,7 +1,7 @@
 package com.lgzarturo.blog.services
 
-import com.lgzarturo.blog.models.entities.Post
 import com.lgzarturo.blog.models.dtos.PostRequest
+import com.lgzarturo.blog.models.entities.Post
 
 interface PostService {
     fun getAll(): List<Post>

@@ -2,7 +2,6 @@ package com.lgzarturo.blog.models.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.lgzarturo.blog.models.enums.UserType
-import java.time.LocalDateTime
 import javax.persistence.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank

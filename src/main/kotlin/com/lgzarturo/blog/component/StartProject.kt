@@ -2,10 +2,6 @@ package com.lgzarturo.blog.component
 
 import com.google.api.services.gmail.Gmail
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
-import com.lgzarturo.blog.models.entities.Role
-import com.lgzarturo.blog.models.entities.User
-import com.lgzarturo.blog.repositories.RoleRepository
-import com.lgzarturo.blog.repositories.UserRepository
 import com.lgzarturo.blog.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner

@@ -1,16 +1,15 @@
 package com.lgzarturo.blog.services.impl
 
+import com.lgzarturo.blog.models.dtos.AuthorRequest
 import com.lgzarturo.blog.models.entities.Author
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.dtos.AuthorRequest
 import com.lgzarturo.blog.repositories.AuthorRepository
 import com.lgzarturo.blog.services.AuthorService
 import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanUtils
 import org.springframework.stereotype.Service
-import java.util.Optional
-import kotlin.jvm.Throws
+import java.util.*
 
 @Service
 class AuthorServiceJpa(

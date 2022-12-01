@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.controllers
 
+import com.lgzarturo.blog.models.dtos.AuthorRequest
 import com.lgzarturo.blog.models.entities.Author
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.dtos.AuthorRequest
 import com.lgzarturo.blog.services.AuthorService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

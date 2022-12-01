@@ -1,8 +1,8 @@
 package com.lgzarturo.blog.controllers
 
+import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.models.entities.Post
-import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.services.CategoryService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -26,7 +26,8 @@ class CategoryController(private val categoryService: CategoryService) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@Valid @RequestBody request: CategoryRequest): ResponseEntity<Category> {
-        return ResponseEntity.ok(categoryService.save(request))
+        val response = categoryService.save(request)?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(response)
     }
 
     @GetMapping("{id}")

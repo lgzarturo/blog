@@ -10,12 +10,11 @@ import org.apache.http.entity.ContentType
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.io.ByteArrayOutputStream
-import java.util.Properties
+import java.util.*
 import javax.mail.Message
 import javax.mail.Session
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
-import kotlin.jvm.Throws
 
 @Service
 class GmailService(private val gmail: Gmail) : MailService {

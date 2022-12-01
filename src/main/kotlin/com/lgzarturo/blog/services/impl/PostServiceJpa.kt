@@ -1,7 +1,7 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.models.entities.Post
 import com.lgzarturo.blog.models.dtos.PostRequest
+import com.lgzarturo.blog.models.entities.Post
 import com.lgzarturo.blog.repositories.PostRepository
 import com.lgzarturo.blog.services.PostService
 import org.modelmapper.ModelMapper
