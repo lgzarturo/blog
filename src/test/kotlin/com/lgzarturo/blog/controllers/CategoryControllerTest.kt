@@ -2,6 +2,7 @@ package com.lgzarturo.blog.controllers
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.lgzarturo.blog.bodyTo
 import com.lgzarturo.blog.models.entities.Category
 import com.lgzarturo.blog.services.CategoryService
 import org.hamcrest.MatcherAssert.assertThat
@@ -33,10 +34,9 @@ internal class CategoryControllerTest {
     @Test
     fun list_allCategories() {
         val categoriesFromService = categoryService.getAll().map { it.id }
-        val jsonResponse = mockMvc.perform(MockMvcRequestBuilders.get("/categories"))
+        val categories = mockMvc.perform(MockMvcRequestBuilders.get("/categories"))
             .andExpect(MockMvcResultMatchers.status().isOk)
-            .andReturn().response.contentAsString
-        val categories: List<Category> = mapper.readValue(jsonResponse, object : TypeReference<List<Category>>() {})
+            .bodyTo<List<Category>>(mapper)
         assertThat(categoriesFromService, Matchers.`is`(Matchers.equalTo(categories.map { it.id })))
     }
 }
