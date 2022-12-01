@@ -5,7 +5,7 @@ import com.lgzarturo.blog.body
 import com.lgzarturo.blog.bodyTo
 import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.models.entities.Category
-import com.lgzarturo.blog.services.CategoryService
+import com.lgzarturo.blog.services.impl.CategoryServiceJpa
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Assertions.*
@@ -36,13 +36,13 @@ internal class CategoryControllerTest {
     private lateinit var modelMapper: ModelMapper
 
     @Autowired
-    private lateinit var categoryService: CategoryService
+    private lateinit var categoryService: CategoryServiceJpa
 
     private val endpointUri = "/categories"
 
     @Test
     fun testList_allCategories() {
-        val categoriesFromService = categoryService.getAll().map { it.id }
+        val categoriesFromService = categoryService.all().map { it.id }
         val categories = mockMvc.perform(get(endpointUri))
             .andExpect(status().isOk)
             .bodyTo<List<Category>>(mapper)
@@ -51,7 +51,7 @@ internal class CategoryControllerTest {
 
     @Test
     fun testFinById() {
-        val categoriesFromService = categoryService.getAll()
+        val categoriesFromService = categoryService.all()
         assert(categoriesFromService.isNotEmpty())
         val category = categoriesFromService.first()
         mockMvc.perform(get("$endpointUri/${category.id}"))
@@ -70,7 +70,7 @@ internal class CategoryControllerTest {
     fun testCreateCategory(): Category {
         val category = Category(title = "Web Development", slug = "web-dev", description = "web development programming")
         val result = mockMvc.perform(post(endpointUri).body(data = category, mapper = mapper))
-            .andExpect(status().isOk)
+            .andExpect(status().isCreated)
             .bodyTo<Category>(mapper)
         assertNotNull(result)
         return result
@@ -78,7 +78,7 @@ internal class CategoryControllerTest {
 
     @Test
     fun testCreateCategory_fail() {
-        val categoriesFromService = categoryService.getAll()
+        val categoriesFromService = categoryService.all()
         assert(categoriesFromService.isNotEmpty())
         val category = categoriesFromService.first()
         val categoryRequest = modelMapper.map(category, CategoryRequest::class.java)
@@ -88,11 +88,10 @@ internal class CategoryControllerTest {
 
     @Test
     fun testUpdateCategory() {
-        val categoriesFromService = categoryService.getAll()
+        val categoriesFromService = categoryService.all()
         assert(categoriesFromService.isNotEmpty())
-        val category = categoriesFromService.first()
-        val categoryRequest = modelMapper.map(category, CategoryRequest::class.java).apply { title = "Nueva categoría" }
-        val result = mockMvc.perform(put("$endpointUri/${category.id}").body(data = categoryRequest, mapper = mapper))
+        val category = categoriesFromService.first().apply { title = "Nueva categoría" }
+        val result = mockMvc.perform(put("$endpointUri/${category.id}").body(data = category, mapper = mapper))
             .andExpect(status().isOk)
             .bodyTo<Category>(mapper)
         assertNotNull(result)
@@ -100,11 +99,10 @@ internal class CategoryControllerTest {
 
     @Test
     fun testUpdateCategory_fail() {
-        val categoriesFromService = categoryService.getAll()
+        val categoriesFromService = categoryService.all()
         assert(categoriesFromService.isNotEmpty())
-        val category = categoriesFromService.first()
-        val categoryRequest = modelMapper.map(category, CategoryRequest::class.java).apply { title = "Nueva categoría" }
-        mockMvc.perform(put("$endpointUri/121213").body(data = categoryRequest, mapper = mapper))
+        val category = categoriesFromService.first().apply { title = "Nueva categoría" }
+        mockMvc.perform(put("$endpointUri/121213").body(data = category, mapper = mapper))
             .andExpect(status().isNotFound)
     }
 
@@ -114,18 +112,17 @@ internal class CategoryControllerTest {
         val result = mockMvc.perform(delete("$endpointUri/${category.id}"))
             .andExpect(status().isNoContent)
         assertNotNull(result)
-        assert(!categoryService.getAll().contains(category))
+        assert(!categoryService.all().contains(category))
     }
 
     @Test
     fun testDeleteCategory_failRelationship() {
-        val categoriesFromService = categoryService.getAll()
+        val categoriesFromService = categoryService.all()
         assert(categoriesFromService.isNotEmpty())
         val category = categoriesFromService.first()
         mockMvc.perform(delete("$endpointUri/${category.id}"))
             .andExpect(status().isUnprocessableEntity)
-        val items = categoryService.getAll()
-        assert(categoryService.getAll().map { it.id }.contains(category.id))
+        assert(categoryService.all().map { it.id }.contains(category.id))
     }
 
     @Test
