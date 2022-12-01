@@ -2,6 +2,7 @@ package com.lgzarturo.blog.controllers
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.lgzarturo.blog.body
 import com.lgzarturo.blog.bodyTo
 import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.models.entities.Category
@@ -70,7 +71,7 @@ internal class CategoryControllerTest {
     @Test
     fun testCreateCategory() {
         val category = Category(title = "Web Development", slug = "web-dev", description = "web development programming")
-        val result = mockMvc.perform(post(endpointUri).content(mapper.writeValueAsBytes(category)).contentType(MediaType.APPLICATION_JSON))
+        val result = mockMvc.perform(post(endpointUri).body(data = category, mapper = mapper))
             .andExpect(status().isOk)
             .bodyTo<Category>(mapper)
         assertNotNull(result)
@@ -82,7 +83,7 @@ internal class CategoryControllerTest {
         assert(categoriesFromService.isNotEmpty())
         val category = categoriesFromService.first()
         val categoryRequest = modelMapper.map(category, CategoryRequest::class.java)
-        val result = mockMvc.perform(post(endpointUri).content(mapper.writeValueAsBytes(categoryRequest)).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post(endpointUri).body(data = categoryRequest, mapper = mapper))
             .andExpect(status().isBadRequest)
     }
 }
