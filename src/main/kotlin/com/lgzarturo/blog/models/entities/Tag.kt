@@ -16,7 +16,7 @@ class Tag (
     @NotBlank
     val slug: String? = null,
     @JsonBackReference
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
     val posts: MutableSet<Post> = mutableSetOf()
 ) : BaseEntity() {
     override fun toString(): String {

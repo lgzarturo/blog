@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "posts", uniqueConstraints=[UniqueConstraint(columnNames=["title", "slug"])])
-class Post (
+data class Post (
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "postSeqGen")
     @SequenceGenerator(name = "postSeqGen", sequenceName = "postSeq", initialValue = 1)

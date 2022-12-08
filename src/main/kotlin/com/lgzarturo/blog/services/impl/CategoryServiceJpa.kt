@@ -14,6 +14,28 @@ class CategoryServiceJpa(
 
     private val log = LoggerFactory.getLogger(this::class.java)
 
+    override fun all(): List<Category> {
+        return categoryRepository.findAll()
+    }
+
+    override fun create(data: Category): Category? {
+        return try {
+            categoryRepository.save(data)
+        } catch (e: Exception) {
+            log.error("Error saving category ${e.message}")
+            null
+        }
+    }
+
+    override fun read(id: Long): Category? {
+        return findById(id).orElse(null)
+    }
+
+
+    override fun update(id: Long, data: Category): Category? {
+        return categoryRepository.save(data)
+    }
+
     override fun delete(id: Long) {
         try {
             val category = findById(id).get()
@@ -26,26 +48,5 @@ class CategoryServiceJpa(
 
     private fun findById(id: Long): Optional<Category> {
         return categoryRepository.findById(id)
-    }
-
-    override fun all(): List<Category> {
-        return categoryRepository.findAll()
-    }
-
-    override fun update(id: Long, data: Category): Category? {
-        return categoryRepository.save(data)
-    }
-
-    override fun read(id: Long): Category? {
-        return findById(id).orElse(null)
-    }
-
-    override fun create(data: Category): Category? {
-        return try {
-            categoryRepository.save(data)
-        } catch (e: Exception) {
-            log.error("Error saving category ${e.message}")
-            null
-        }
     }
 }
