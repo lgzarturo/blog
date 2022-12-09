@@ -1,6 +1,5 @@
 package com.lgzarturo.blog.services.impl
 
-import com.lgzarturo.blog.models.dtos.PostBody
 import com.lgzarturo.blog.models.entities.Post
 import com.lgzarturo.blog.repositories.PostRepository
 import com.lgzarturo.blog.services.BasicCrud
@@ -8,7 +7,6 @@ import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.util.*
-import kotlin.streams.toList
 
 @Service
 class PostServiceJpa(
@@ -19,24 +17,23 @@ class PostServiceJpa(
     private val log = LoggerFactory.getLogger(this::class.java)
 
     override fun all(): List<Post> {
-        return postRepository.findAll().map { modelMapper.map(it, PostBody::class.java) }
+        return postRepository.findAll()
     }
 
-    override fun create(data: PostBody): PostBody? {
-        val post: Post = modelMapper.map(data, Post::class.java)
+    override fun create(data: Post): Post? {
         return try {
-            postRepository.save(post)
+            postRepository.save(data)
         } catch (e: Exception) {
             log.error("Error saving post ${e.message}")
             null
         }
     }
 
-    override fun read(id: Long): PostBody? {
+    override fun read(id: Long): Post? {
         return findById(id).orElse(null)
     }
 
-    override fun update(id: Long, data: PostBody): PostBody? {
+    override fun update(id: Long, data: Post): Post? {
         return postRepository.save(data)
     }
 
