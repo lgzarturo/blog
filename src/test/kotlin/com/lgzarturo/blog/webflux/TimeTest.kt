@@ -9,9 +9,9 @@ import java.time.Duration
 class TimeTest {
     @Test
     fun infiniteSequence() {
-        val infinityNumbers: Flux<Long> = Flux.interval(Duration.ofMillis(200)).log()
+        val infinityNumbers: Flux<Long> = Flux.interval(Duration.ofMillis(100)).log()
         infinityNumbers.subscribe { element -> print("Value $element") }
-        Thread.sleep(3000)
+        Thread.sleep(1000)
     }
 
     @Test

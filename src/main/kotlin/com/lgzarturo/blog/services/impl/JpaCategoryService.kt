@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CategoryServiceJpa(
+class JpaCategoryService(
     private val categoryRepository: CategoryRepository
 ) : BasicCrud<Category, Long> {
 

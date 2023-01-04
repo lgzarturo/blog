@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class StartProject {
+
     private final val logger = LoggerFactory.getLogger(this::class.java)
 
     /**

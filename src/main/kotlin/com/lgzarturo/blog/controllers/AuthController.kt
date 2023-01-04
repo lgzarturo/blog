@@ -11,6 +11,7 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("auth")
 class AuthController(private val userService: UserService) {
+
     @PostMapping("/login")
     fun login(): String = "Login ok"
 

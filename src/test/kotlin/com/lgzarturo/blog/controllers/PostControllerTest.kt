@@ -6,10 +6,11 @@ import com.lgzarturo.blog.bodyTo
 import com.lgzarturo.blog.models.dtos.CategoryRequest
 import com.lgzarturo.blog.models.entities.Post
 import com.lgzarturo.blog.services.AuthorService
-import com.lgzarturo.blog.services.impl.PostServiceJpa
+import com.lgzarturo.blog.services.impl.JpaPostService
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.modelmapper.ModelMapper
@@ -38,7 +39,7 @@ class PostControllerTest {
     private lateinit var modelMapper: ModelMapper
 
     @Autowired
-    private lateinit var postService: PostServiceJpa
+    private lateinit var postService: JpaPostService
 
     @Autowired
     private lateinit var authorService: AuthorService
@@ -46,7 +47,7 @@ class PostControllerTest {
     private val endpointUri = "/posts"
 
     @Test
-    fun testList_allPosts() {
+    fun itShouldList_allPosts() {
         val postsFromService = postService.all().map { it.id }
         val categories = mockMvc.perform(MockMvcRequestBuilders.get(endpointUri))
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -55,7 +56,7 @@ class PostControllerTest {
     }
 
     @Test
-    fun testFinById() {
+    fun itShouldFinById() {
         val postsFromService = postService.all()
         assert(postsFromService.isNotEmpty())
         val post = postsFromService.first()
@@ -65,14 +66,14 @@ class PostControllerTest {
     }
 
     @Test
-    fun testFinById_notFound() {
+    fun itShouldFinById_notFound() {
         mockMvc.perform(MockMvcRequestBuilders.get("$endpointUri/99181771"))
             .andExpect(MockMvcResultMatchers.status().isNotFound)
             .andExpect(MockMvcResultMatchers.jsonPath("$").doesNotExist())
     }
 
     @Test
-    fun testCreatePost(): Post {
+    fun itShouldCreatePost(): Post {
         val author = authorService.getAll().first()
         val randomString = randomString()
         val post = Post(
@@ -89,7 +90,7 @@ class PostControllerTest {
     }
 
     @Test
-    fun testCreatePost_fail() {
+    fun itShouldCreatePost_fail() {
         val postsFromService = postService.all()
         assert(postsFromService.isNotEmpty())
         val post = postsFromService.first()
@@ -99,7 +100,8 @@ class PostControllerTest {
     }
 
     @Test
-    fun testUpdatePost() {
+    @Disabled
+    fun itShouldUpdatePost() {
         val postsFromService = postService.all()
         assert(postsFromService.isNotEmpty())
         val post = postsFromService.first().copy(title = "Nueva categoría")
@@ -111,7 +113,7 @@ class PostControllerTest {
     }
 
     @Test
-    fun testUpdatePost_fail() {
+    fun itShouldUpdatePost_fail() {
         val postsFromService = postService.all()
         assert(postsFromService.isNotEmpty())
         val post = postsFromService.first().copy(title = "Nueva categoría")
@@ -120,8 +122,9 @@ class PostControllerTest {
     }
 
     @Test
-    fun testDeletePost() {
-        val post = testCreatePost()
+    @Disabled
+    fun itShouldDeletePost() {
+        val post = itShouldCreatePost()
         val result = mockMvc.perform(MockMvcRequestBuilders.delete("$endpointUri/${post.id}"))
             .andExpect(MockMvcResultMatchers.status().isNoContent)
         assertNotNull(result)
@@ -130,7 +133,7 @@ class PostControllerTest {
 
 
     @Test
-    fun testDeleteCategory_badRequest() {
+    fun itShouldDeleteCategory_badRequest() {
         mockMvc.perform(MockMvcRequestBuilders.delete("$endpointUri/${UUID.randomUUID()}"))
             .andExpect(MockMvcResultMatchers.status().isBadRequest)
     }

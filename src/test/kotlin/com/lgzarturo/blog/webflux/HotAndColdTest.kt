@@ -11,9 +11,9 @@ class HotAndColdTest {
     @Test
     fun coldTest() {
         heroes.subscribe { s -> println("This is a marvel super hero: $s") }
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         heroes.subscribe { s -> println("$s is a hero Super Amazing") }
-        Thread.sleep(4000)
+        Thread.sleep(1000)
     }
 
     @Test
@@ -21,8 +21,8 @@ class HotAndColdTest {
         val connectionToFlux = heroes.publish()
         connectionToFlux.connect()
         connectionToFlux.subscribe { s -> println("This is a marvel super hero: $s") }
-        Thread.sleep(4000)
+        Thread.sleep(1000)
         connectionToFlux.subscribe { s -> println("$s is a hero Super Amazing") }
-        Thread.sleep(4000)
+        Thread.sleep(1000)
     }
 }

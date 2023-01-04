@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 import kotlin.math.floor
 
 @Service
-class UserServiceJpa(
+class JpaUserService(
     private val userRepository: UserRepository,
     private val roleRepository: RoleRepository,
     private val mailService: MailService,

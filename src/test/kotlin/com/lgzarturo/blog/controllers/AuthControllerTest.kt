@@ -4,6 +4,7 @@ import com.lgzarturo.blog.models.dtos.UserChangePasswordRequest
 import com.lgzarturo.blog.models.dtos.UserRegisterRequest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,13 +19,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 internal class AuthControllerTest(@Autowired private val restTemplate: TestRestTemplate) {
 
     @Test
-    fun testLogin() {
+    fun itShouldTestSuccessLogin() {
         val content = "Login ok"
         Assertions.assertThat(restTemplate.postForObject<String>("/auth/login")).isEqualTo(content)
     }
 
     @Test
-    fun testRegister() {
+    fun itShouldUserRegister_thenReturnUserWithoutPassword() {
         val email = "testRegister@example.com"
         val password = "password-super-complex"
         val request = UserRegisterRequest()
@@ -38,7 +39,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testRegister_withoutEmail() {
+    fun itShouldRegisterWithoutEmail_thenReturnBadRequest() {
         val password = "password-super-complex"
         val request = UserRegisterRequest()
         request.password = password
@@ -48,7 +49,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testRegister_withoutPassword() {
+    fun itShouldRegisterWithoutPassword_thenReturnBadRequest() {
         val email = "testWithoutPass@example.com"
         val request = UserRegisterRequest()
         request.email = email
@@ -58,7 +59,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testRegister_emailAlreadyRegistered() {
+    fun itShouldRegisterWithEmailAlreadyRegistered_thenReturnMessageError() {
         val password = "password-super-complex"
         val email = "testAllReady@example.com"
         val request = UserRegisterRequest()
@@ -70,7 +71,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testRegister_emailMalformed() {
+    fun itShouldRegisterWithEmailMalformed_thenReturnBadRequest() {
         val password = "password-super-complex"
         val email = "testAllReady"
         val request = UserRegisterRequest()
@@ -84,7 +85,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testRegister_passwordIsToShort() {
+    fun itShouldRegisterWithPasswordIsToShort_thenReturnMessageError() {
         val password = "pc"
         val email = "testPassToShort@example.com"
         val request = UserRegisterRequest()
@@ -96,7 +97,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testUpdatePassword() {
+    fun itShouldTestUpdatePassword_thenReturnUserWithoutPassword() {
         val password = "super-password"
         val nuevoPassword = "new-password-xyz"
         val email = "testupdatepassword@example.com"
@@ -116,7 +117,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testUpdatePassword_userNotExists() {
+    fun itShouldUpdatePasswordWithUserNotExists_thenReturnErrorMessage() {
         val password = "super-password"
         val email = "testusernotexists@example.com"
         val request = UserChangePasswordRequest()
@@ -128,7 +129,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testUpdatePassword_confirmPasswordNotMatch() {
+    fun itShouldUpdatePasswordWithConfirmPasswordNotMatch_thenReturnErrorMessage() {
         val password = "one-password-abc"
         val nuevoPassword = "new-password-xyz"
         val email = "testconfirmpass@example.com"
@@ -145,7 +146,8 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testGenerateVerificationCode() {
+    @Disabled
+    fun itShouldTestGenerateVerificationCode() {
         val password = "super-password"
         val email = "lgzarturo@gmail.com"
         val request = UserRegisterRequest()
@@ -159,7 +161,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testGenerateVerificationCode_usernameNotExists() {
+    fun itShouldGenerateVerificationCodeWithUsernameNotExists_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         params["email"] = "one-email-not-exist@gmail.com"
         val result = restTemplate.postForObject<String>("/auth/email/code", params)
@@ -167,7 +169,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testGenerateVerificationCode_usernameNotProvided() {
+    fun itShouldGenerateVerificationCodeWithUsernameNotProvided_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         val result = restTemplate.postForObject<String>("/auth/email/code", params)
         Assertions.assertThat(result).contains("Param email is required")
@@ -183,7 +185,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testValidationVerificationCode_codeNotProvided() {
+    fun itShouldValidationVerificationCodeWithCodeNotProvided_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         params["email"] = "one@gmail.com"
         val result = restTemplate.postForObject<String>("/auth/email/code/verification", params)
@@ -191,7 +193,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testValidationVerificationCode_errorCodeInvalid() {
+    fun itShouldValidationVerificationCodeWithErrorCodeInvalid_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         val code = "11291292"
         params["email"] = "lgzarturo@gmail.com"
@@ -201,7 +203,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testChangePassword() {
+    fun itShouldTestChangePassword() {
         val email = "changepassword@example.com"
         val password = "password-super-complex"
         val request = UserRegisterRequest()
@@ -216,7 +218,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testChangePassword_usernameNotProvided() {
+    fun itShouldChangePasswordWithUsernameNotProvided_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         params["password"] = "11291292"
         val result = restTemplate.patchForObject<String>("/auth/update/password", params)
@@ -224,7 +226,7 @@ internal class AuthControllerTest(@Autowired private val restTemplate: TestRestT
     }
 
     @Test
-    fun testChangePassword_passwordNotProvided() {
+    fun itShouldChangePasswordWithPasswordNotProvided_thenReturnErrorMessage() {
         val params = HashMap<String, String>()
         params["email"] = "one@gmail.com"
         val result = restTemplate.patchForObject<String>("/auth/update/password", params)

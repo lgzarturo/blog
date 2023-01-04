@@ -43,5 +43,4 @@ class HandleExceptionController {
     fun handlePasswordEncoderException(
         ex: PasswordEncoderException
     ) : ResponseEntity<ErrorException> = ResponseEntity(ErrorException(ex), HttpStatus.BAD_REQUEST)
-
 }

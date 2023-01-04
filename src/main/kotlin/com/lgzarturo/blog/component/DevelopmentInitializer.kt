@@ -25,6 +25,7 @@ class DevelopmentInitializer(
     private val userRepository: UserRepository,
     private val roleRepository: RoleRepository
     ) : ApplicationRunner {
+
     private final val logger = LoggerFactory.getLogger(this::class.java)
 
     /**

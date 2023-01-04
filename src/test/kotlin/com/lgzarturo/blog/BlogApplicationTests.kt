@@ -1,6 +1,6 @@
 package com.lgzarturo.blog
 
-import com.lgzarturo.blog.controllers.Request
+import com.lgzarturo.blog.models.dtos.PeopleRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -17,13 +17,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 class BlogApplicationTests(@Autowired private val restTemplate: TestRestTemplate) {
 
 	@Test
-	fun testHomeController_indexWithoutParams() {
+	fun itShouldHomeControllerWithIndexWithoutParams() {
         val content = """{"id":null,"status":200,"name":null,"age":null,"message":"Hola mundo !","isActive":false}"""
         assertThat(restTemplate.getForObject<String>("/")).isEqualTo(content)
 	}
 
     @Test
-	fun testHomeController_indexWithParams() {
+	fun itShouldHomeControllerWithIndexWithParams() {
         val name = "mágico"
         val params = HashMap<String, String>()
         params["name"] = name
@@ -32,8 +32,8 @@ class BlogApplicationTests(@Autowired private val restTemplate: TestRestTemplate
 	}
 
     @Test
-    fun testHomeController_indexWithBody() {
-        val request = Request().apply { name = "John" }.apply { age = 40 }
+    fun itShouldHomeControllerWithIndexWithBody() {
+        val request = PeopleRequest().apply { name = "John" }.apply { age = 40 }
         val content = """{"id":null,"status":200,"name":null,"age":null,"message":"Hola mundo, tenemos un mensaje de ${request.name} y tiene ${request.age} años de antigüedad.","isActive":false}"""
         assertThat(restTemplate.postForObject<String>("/", request)).isEqualTo(content)
     }

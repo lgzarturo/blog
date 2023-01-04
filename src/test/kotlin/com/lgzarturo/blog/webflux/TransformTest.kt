@@ -59,7 +59,7 @@ class TransformTest {
 
     @Throws(InterruptedException::class)
     private fun convertToList(s: String): List<String> {
-        Thread.sleep(1000)
+        Thread.sleep(100)
         return listOf(s, "new value")
     }
 

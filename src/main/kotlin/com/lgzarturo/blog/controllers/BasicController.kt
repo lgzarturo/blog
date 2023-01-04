@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 abstract class BasicController<T, ID>(private val basicCrud: BasicCrud<T, ID>) {
+
     @GetMapping
     open fun all() = basicCrud.all()
 

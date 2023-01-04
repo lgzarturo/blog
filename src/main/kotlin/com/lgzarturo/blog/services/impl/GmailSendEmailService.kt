@@ -17,7 +17,7 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 
 @Service
-class GmailService(private val gmail: Gmail) : MailService {
+class GmailSendEmailService(private val gmail: Gmail) : MailService {
 
     private val log = LoggerFactory.getLogger(this.javaClass)
 

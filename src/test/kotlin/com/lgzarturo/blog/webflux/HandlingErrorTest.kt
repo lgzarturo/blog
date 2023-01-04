@@ -74,7 +74,7 @@ class HandlingErrorTest {
             .concatWith(Flux.error(RuntimeException("Spawn no es de DC Comics")))
             .concatWith(Flux.just("Wonder Woman"))
             .onErrorMap { e -> CustomException(e) }
-            .retryWhen(Retry.backoff(1, Duration.ofSeconds(2)))
+            .retryWhen(Retry.backoff(1, Duration.ofSeconds(1)))
             .log()
         StepVerifier.create(dataFlux)
             .expectSubscription()

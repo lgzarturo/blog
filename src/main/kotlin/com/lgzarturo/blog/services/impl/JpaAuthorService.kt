@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class AuthorServiceJpa(
+class JpaAuthorService(
     private val authorRepository: AuthorRepository,
     private val modelMapper: ModelMapper
     ) : AuthorService {

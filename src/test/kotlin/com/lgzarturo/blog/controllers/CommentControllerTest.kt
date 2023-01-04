@@ -25,7 +25,7 @@ class CommentControllerTest {
     private lateinit var mockMvc: MockMvc
 
     @Test
-    fun testGetAllCommentsTest() {
+    fun itShouldTestGetAllComments() {
         val mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/comments"))
             .andExpect(MockMvcResultMatchers.request().asyncStarted())
             .andDo(MockMvcResultHandlers.log())
@@ -39,7 +39,7 @@ class CommentControllerTest {
     }
 
     @Test
-    fun testGetAllCommentsTest_stream() {
+    fun itShouldGetAllCommentsTestWithStream_thenReturnOk() {
         val mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/comments/stream"))
             .andExpect(MockMvcResultMatchers.request().asyncStarted())
             .andDo(MockMvcResultHandlers.log())
