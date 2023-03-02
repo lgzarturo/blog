@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.dao.DataIntegrityViolationException
 import java.util.UUID
 
 @DataJpaTest
@@ -18,11 +19,7 @@ class ContactRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        this.contact = Contact()
-        val id = contactId
-        this.contact!!.id = id
-        this.contact!!.name = "John Doe"
-        this.contact!!.phoneNumber = "9981918282"
+        contact = Contact(contactId, "John Doe", "9981918282", "")
     }
 
     @Test
@@ -47,5 +44,13 @@ class ContactRepositoryTest {
             // Comparando todos los campos de un objeto
             Assertions.assertThat(it).usingRecursiveComparison().isEqualTo(contact)
         }
+    }
+
+    @Test
+    fun itShouldNotSaveContactWhenPhoneNumberIsBlank() {
+        contact = Contact(contactId, "John Doe", "", "")
+        contactRepository.save(this.contact!!)
+        val data = contactRepository.findById(contactId).get()
+        Assertions.assertThat(data).isNotNull
     }
 }
